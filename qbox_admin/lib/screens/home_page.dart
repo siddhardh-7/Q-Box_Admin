@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:qbox_admin/screens/batch_management.dart';
+import 'package:qbox_admin/screens/coupon_management.dart';
 import 'package:qbox_admin/screens/course_management.dart';
 import 'package:qbox_admin/screens/student_management.dart';
+import 'package:qbox_admin/screens/teacher_management.dart';
 import 'package:qbox_admin/screens/test_mangement.dart';
 import 'package:qbox_admin/widgets/home_tile.dart';
 
@@ -10,6 +12,8 @@ enum Management {
   batchManagement,
   studentManagement,
   testManagement,
+  teacherManagement,
+  couponManagement
 }
 
 class HomePage extends StatefulWidget {
@@ -28,6 +32,8 @@ class _HomePageState extends State<HomePage> {
     const BatchManagement(),
     const StudentManagement(),
     const TestManagement(),
+    const TeacherManagement(),
+    const CouponManagement(),
   ];
 
   @override
@@ -138,6 +144,36 @@ class _HomePageState extends State<HomePage> {
                             color: selectManagement == Management.testManagement
                                 ? Colors.amber
                                 : Colors.white,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              bodyIndex = 4;
+                              selectManagement = Management.teacherManagement;
+                            });
+                          },
+                          child: HomeTile(
+                            title: 'Teacher Management',
+                            color:
+                                selectManagement == Management.teacherManagement
+                                    ? Colors.amber
+                                    : Colors.white,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              bodyIndex = 5;
+                              selectManagement = Management.couponManagement;
+                            });
+                          },
+                          child: HomeTile(
+                            title: 'Coupon Management',
+                            color:
+                                selectManagement == Management.couponManagement
+                                    ? Colors.amber
+                                    : Colors.white,
                           ),
                         ),
                       ],
