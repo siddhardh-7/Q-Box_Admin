@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:qbox_admin/widgets/bottom_material_button.dart';
+import 'package:qbox_admin/widgets/pop_up_text_field.dart';
+import 'package:qbox_admin/widgets/submit_button.dart';
+import 'package:qbox_admin/widgets/test_tile.dart';
 
 class TestManagement extends StatefulWidget {
   const TestManagement({Key? key}) : super(key: key);
@@ -8,6 +12,7 @@ class TestManagement extends StatefulWidget {
 }
 
 class _TestManagementState extends State<TestManagement> {
+  bool download = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,27 +58,9 @@ class _TestManagementState extends State<TestManagement> {
                               color: Colors.amber,
                             ),
                           ),
-                          ListTile(
-                            title: const Text('B.Tech CSE Test'),
-                            trailing: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.mode_edit_rounded),
-                            ),
-                          ),
-                          ListTile(
-                            title: const Text('B.Tech ECE Test'),
-                            trailing: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.mode_edit_rounded),
-                            ),
-                          ),
-                          ListTile(
-                            title: const Text('B.Tech EEE Test'),
-                            trailing: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.mode_edit_rounded),
-                            ),
-                          ),
+                          TestTile(title: 'CSE test'),
+                          TestTile(title: 'ECE Test'),
+                          TestTile(title: 'EEE test'),
                           const SizedBox(),
                         ],
                       ),
@@ -94,26 +81,17 @@ class _TestManagementState extends State<TestManagement> {
                               color: Colors.amber,
                             ),
                           ),
-                          ListTile(
-                            title: const Text('HTML/CSS/Javascript'),
-                            trailing: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.download_rounded),
-                            ),
+                          TestTile(
+                            title: 'HTML/CSS/Javascript',
+                            download: true,
                           ),
-                          ListTile(
-                            title: const Text('Angular'),
-                            trailing: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.download_rounded),
-                            ),
+                          TestTile(
+                            title: 'Angular',
+                            download: true,
                           ),
-                          ListTile(
-                            title: const Text('Vue'),
-                            trailing: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.download_rounded),
-                            ),
+                          TestTile(
+                            title: 'Vue',
+                            download: true,
                           ),
                           const SizedBox(),
                         ],
@@ -135,26 +113,10 @@ class _TestManagementState extends State<TestManagement> {
                               color: Colors.amber,
                             ),
                           ),
-                          ListTile(
-                            title: const Text('Node.js'),
-                            trailing: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.mode_edit_rounded),
-                            ),
-                          ),
-                          ListTile(
-                            title: const Text('django'),
-                            trailing: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.mode_edit_rounded),
-                            ),
-                          ),
-                          ListTile(
-                            title: const Text('Mysql'),
-                            trailing: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.mode_edit_rounded),
-                            ),
+                          TestTile(title: 'Node.js'),
+                          TestTile(title: 'django'),
+                          TestTile(
+                            title: 'MySql',
                           ),
                         ],
                       ),
@@ -165,21 +127,72 @@ class _TestManagementState extends State<TestManagement> {
             ),
             Align(
               alignment: Alignment.bottomRight,
-              child: Material(
-                color: Colors.amberAccent,
-                elevation: 4,
-                type: MaterialType.button,
-                child: MaterialButton(
-                  onPressed: () {},
-                  padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.width / 76.8),
-                  child: Text(
-                    'Add New Test',
-                    style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width / 64,
+              child: BottomMaterialButton(
+                text: 'Add New Test',
+                popUpChild: Wrap(
+                  children: const [
+                    Divider(
+                      color: Colors.amber,
                     ),
-                  ),
+                    PopUpTextField(
+                        hint: 'Monthly Test 1',
+                        label: 'Test Name',
+                        widthRatio: 2),
+                    PopUpTextField(
+                        hint: '60 min', label: 'Test Duration', widthRatio: 1),
+                    PopUpTextField(
+                        hint: 'DD-MM-YYYY-HH-mm',
+                        label: 'Start Date',
+                        widthRatio: 1),
+                    Divider(
+                      color: Colors.amber,
+                    ),
+                    PopUpTextField(
+                      hint: 'API means',
+                      label: 'Question',
+                      widthRatio: 2,
+                    ),
+                    PopUpTextField(
+                      hint: '',
+                      label: 'Option 1',
+                      widthRatio: 1,
+                    ),
+                    PopUpTextField(
+                      hint: '',
+                      label: 'Option 2',
+                      widthRatio: 1,
+                    ),
+                    PopUpTextField(
+                      hint: '',
+                      label: 'Option 3',
+                      widthRatio: 1,
+                    ),
+                    PopUpTextField(
+                      hint: '',
+                      label: 'Option 4',
+                      widthRatio: 1,
+                    ),
+                  ],
                 ),
+                popUpactions: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SubmitButton(
+                        text: 'Preview Paper',
+                        onPressed: () {},
+                      ),
+                      SubmitButton(
+                        text: 'Add Question',
+                        onPressed: () {},
+                      ),
+                      SubmitButton(
+                        text: 'Submit',
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],
