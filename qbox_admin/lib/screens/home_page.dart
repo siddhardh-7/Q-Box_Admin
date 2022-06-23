@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:qbox_admin/screens/batch_management.dart';
 import 'package:qbox_admin/screens/coupon_management.dart';
 import 'package:qbox_admin/screens/course_management.dart';
+import 'package:qbox_admin/screens/free_video_managment.dart';
+import 'package:qbox_admin/screens/level_up_management.dart';
+//import 'package:qbox_admin/screens/practice_managment.dart';
 import 'package:qbox_admin/screens/student_management.dart';
 import 'package:qbox_admin/screens/teacher_management.dart';
 import 'package:qbox_admin/screens/test_mangement.dart';
+import 'package:qbox_admin/screens/videos_management.dart';
 import 'package:qbox_admin/widgets/home_tile.dart';
 
 enum Management {
@@ -13,7 +17,11 @@ enum Management {
   studentManagement,
   testManagement,
   teacherManagement,
-  couponManagement
+  couponManagement,
+  videoManagement,
+  freeVideosManagement,
+  levelUpSeriesManagement,
+  practiceQuestionManagement,
 }
 
 class HomePage extends StatefulWidget {
@@ -34,6 +42,10 @@ class _HomePageState extends State<HomePage> {
     const TestManagement(),
     const TeacherManagement(),
     const CouponManagement(),
+    const VideoManagement(),
+    const FreeVideoManagement(),
+    const LevelUpManagement(),
+    //const PracticeManagement(),
   ];
 
   @override
@@ -174,6 +186,69 @@ class _HomePageState extends State<HomePage> {
                                 selectManagement == Management.couponManagement
                                     ? Colors.amber
                                     : Colors.white,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              bodyIndex = 6;
+                              selectManagement = Management.videoManagement;
+                            });
+                          },
+                          child: HomeTile(
+                            title: 'Videos',
+                            color:
+                                selectManagement == Management.videoManagement
+                                    ? Colors.amber
+                                    : Colors.white,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              bodyIndex = 7;
+                              selectManagement =
+                                  Management.freeVideosManagement;
+                            });
+                          },
+                          child: HomeTile(
+                            title: 'Free Videos',
+                            color: selectManagement ==
+                                    Management.freeVideosManagement
+                                ? Colors.amber
+                                : Colors.white,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              bodyIndex = 8;
+                              selectManagement =
+                                  Management.levelUpSeriesManagement;
+                            });
+                          },
+                          child: HomeTile(
+                            title: 'Level Up Series',
+                            color: selectManagement ==
+                                    Management.levelUpSeriesManagement
+                                ? Colors.amber
+                                : Colors.white,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              bodyIndex = 9;
+                              selectManagement =
+                                  Management.practiceQuestionManagement;
+                            });
+                          },
+                          child: HomeTile(
+                            title: 'Practice Question',
+                            color: selectManagement ==
+                                    Management.practiceQuestionManagement
+                                ? Colors.amber
+                                : Colors.white,
                           ),
                         ),
                       ],

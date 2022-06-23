@@ -69,8 +69,8 @@ class _CourseManagementState extends State<CourseManagement> {
                                                             rootNavigator: true)
                                                         .pop();
                                                   },
-                                                  icon:
-                                                      Icon(Icons.close_rounded))
+                                                  icon: const Icon(
+                                                      Icons.close_rounded))
                                             ],
                                           ),
                                           contentPadding: EdgeInsets.all(
