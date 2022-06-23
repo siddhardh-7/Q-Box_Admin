@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:qbox_admin/widgets/pop_up_text_field.dart';
 import 'package:qbox_admin/widgets/submit_button.dart';
 
-class CourseManagementExpansionTailing extends StatelessWidget {
-  const CourseManagementExpansionTailing({
+class CourseManagementExpansionTailWidget extends StatelessWidget {
+  const CourseManagementExpansionTailWidget({
     Key? key,
     required GlobalKey<FormState> formKey,
     required bool customTileExpanded,

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:qbox_admin/widgets/Tailing%20Widgets/batch_management_expansion_tail_widget.dart';
+import 'package:qbox_admin/widgets/bottom_material_button.dart';
+import 'package:qbox_admin/widgets/pop_up_text_field.dart';
+import 'package:qbox_admin/widgets/submit_button.dart';
 
 class BatchManagement extends StatefulWidget {
   const BatchManagement({Key? key}) : super(key: key);
@@ -8,6 +12,9 @@ class BatchManagement extends StatefulWidget {
 }
 
 class _BatchManagementState extends State<BatchManagement> {
+  bool _customTileExpanded = false;
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,6 +51,12 @@ class _BatchManagementState extends State<BatchManagement> {
                       child: ExpansionTile(
                         backgroundColor: Colors.white,
                         title: const Text('CSE Batch'),
+                        trailing: BatchManagementExpansionTailWidget(
+                            formKey: _formKey,
+                            customTileExpanded: _customTileExpanded),
+                        onExpansionChanged: (bool expanded) {
+                          setState(() => _customTileExpanded = expanded);
+                        },
                         children: [
                           Padding(
                             padding: EdgeInsets.symmetric(
@@ -85,6 +98,12 @@ class _BatchManagementState extends State<BatchManagement> {
                       child: ExpansionTile(
                         backgroundColor: Colors.white,
                         title: const Text('Web Development Batch'),
+                        trailing: BatchManagementExpansionTailWidget(
+                            formKey: _formKey,
+                            customTileExpanded: _customTileExpanded),
+                        onExpansionChanged: (bool expanded) {
+                          setState(() => _customTileExpanded = expanded);
+                        },
                         children: [
                           Padding(
                             padding: EdgeInsets.symmetric(
@@ -126,6 +145,12 @@ class _BatchManagementState extends State<BatchManagement> {
                       child: ExpansionTile(
                         backgroundColor: Colors.white,
                         title: const Text('Backend Development Course'),
+                        trailing: BatchManagementExpansionTailWidget(
+                            formKey: _formKey,
+                            customTileExpanded: _customTileExpanded),
+                        onExpansionChanged: (bool expanded) {
+                          setState(() => _customTileExpanded = expanded);
+                        },
                         children: [
                           Padding(
                             padding: EdgeInsets.symmetric(
@@ -165,21 +190,22 @@ class _BatchManagementState extends State<BatchManagement> {
             ),
             Align(
               alignment: Alignment.bottomRight,
-              child: Material(
-                color: Colors.amberAccent,
-                elevation: 4,
-                type: MaterialType.button,
-                child: MaterialButton(
-                  onPressed: () {},
-                  padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.width / 76.8),
-                  child: Text(
-                    'Add New Batch',
-                    style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width / 64,
+              child: BottomMaterialButton(
+                text: 'Add Course',
+                popUpChild: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    Divider(
+                      color: Colors.amber,
                     ),
-                  ),
+                    PopUpTextField(
+                        hint: 'Title', label: 'Title', widthRatio: 2),
+                  ],
                 ),
+                popUpactions: [
+                  SubmitButton(text: 'Add Course', onPressed: () {}),
+                ],
               ),
             ),
           ],

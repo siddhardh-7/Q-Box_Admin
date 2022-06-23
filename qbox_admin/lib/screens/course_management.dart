@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qbox_admin/widgets/bottom_material_button.dart';
-import 'package:qbox_admin/widgets/course_management_expansion_tailing.dart';
+import 'package:qbox_admin/widgets/Tailing%20Widgets/course_management_expansion_tail_widget.dart';
 import 'package:qbox_admin/widgets/pop_up_text_field.dart';
 import 'package:qbox_admin/widgets/submit_button.dart';
 
@@ -50,7 +50,7 @@ class _CourseManagementState extends State<CourseManagement> {
                       child: ExpansionTile(
                         backgroundColor: Colors.white,
                         title: const Text('Engineering Course'),
-                        trailing: CourseManagementExpansionTailing(
+                        trailing: CourseManagementExpansionTailWidget(
                             formKey: _formKey,
                             customTileExpanded: _customTileExpanded),
                         onExpansionChanged: (bool expanded) {
@@ -97,7 +97,7 @@ class _CourseManagementState extends State<CourseManagement> {
                       child: ExpansionTile(
                         backgroundColor: Colors.white,
                         title: const Text('Web Development Course'),
-                        trailing: CourseManagementExpansionTailing(
+                        trailing: CourseManagementExpansionTailWidget(
                             formKey: _formKey,
                             customTileExpanded: _customTileExpanded),
                         onExpansionChanged: (bool expanded) {
@@ -144,7 +144,7 @@ class _CourseManagementState extends State<CourseManagement> {
                       child: ExpansionTile(
                         backgroundColor: Colors.white,
                         title: const Text('Backend Development Course'),
-                        trailing: CourseManagementExpansionTailing(
+                        trailing: CourseManagementExpansionTailWidget(
                             formKey: _formKey,
                             customTileExpanded: _customTileExpanded),
                         onExpansionChanged: (bool expanded) {
