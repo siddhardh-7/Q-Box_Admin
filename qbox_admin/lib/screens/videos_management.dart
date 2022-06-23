@@ -17,7 +17,7 @@ class _VideoManagementState extends State<VideoManagement> {
         child: Column(
           children: [
             Text(
-              'Videos',
+              'Live Videos',
               style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width / 32,
               ),
@@ -456,7 +456,7 @@ class _VideoManagementState extends State<VideoManagement> {
                   padding:
                       EdgeInsets.all(MediaQuery.of(context).size.width / 76.8),
                   child: Text(
-                    'Add Video',
+                    'Schedule Video',
                     style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width / 64,
                     ),

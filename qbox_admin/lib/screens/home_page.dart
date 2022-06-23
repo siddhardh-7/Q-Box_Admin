@@ -4,7 +4,7 @@ import 'package:qbox_admin/screens/coupon_management.dart';
 import 'package:qbox_admin/screens/course_management.dart';
 import 'package:qbox_admin/screens/free_video_managment.dart';
 import 'package:qbox_admin/screens/level_up_management.dart';
-//import 'package:qbox_admin/screens/practice_managment.dart';
+import 'package:qbox_admin/screens/practice_management.dart';
 import 'package:qbox_admin/screens/student_management.dart';
 import 'package:qbox_admin/screens/teacher_management.dart';
 import 'package:qbox_admin/screens/test_mangement.dart';
@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
     const VideoManagement(),
     const FreeVideoManagement(),
     const LevelUpManagement(),
-    //const PracticeManagement(),
+    const PracticeManagement(),
   ];
 
   @override

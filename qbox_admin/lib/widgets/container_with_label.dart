@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class ConatinerWithLabel extends StatefulWidget {
   final String title;
-  List<Widget>? children;
+  final List<Widget>? children;
   final int widthRatio;
-  ConatinerWithLabel(
+  const ConatinerWithLabel(
       {Key? key, required this.title, this.children, required this.widthRatio})
       : super(key: key);
 

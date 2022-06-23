@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:qbox_admin/widgets/bottom_material_button.dart';
+import 'package:qbox_admin/widgets/course_management_expansion_tailing.dart';
+import 'package:qbox_admin/widgets/pop_up_text_field.dart';
+import 'package:qbox_admin/widgets/submit_button.dart';
 
 class CourseManagement extends StatefulWidget {
   const CourseManagement({Key? key}) : super(key: key);
@@ -32,7 +36,6 @@ class _CourseManagementState extends State<CourseManagement> {
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
-                //color: Colors.amberAccent,
                 margin: EdgeInsets.only(
                   bottom: MediaQuery.of(context).size.width * (1 / 153.6),
                 ),
@@ -47,323 +50,9 @@ class _CourseManagementState extends State<CourseManagement> {
                       child: ExpansionTile(
                         backgroundColor: Colors.white,
                         title: const Text('Engineering Course'),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return SingleChildScrollView(
-                                        child: AlertDialog(
-                                          title: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              const Text(
-                                                  'Add New Course Category'),
-                                              IconButton(
-                                                  onPressed: () {
-                                                    Navigator.of(context,
-                                                            rootNavigator: true)
-                                                        .pop();
-                                                  },
-                                                  icon: const Icon(
-                                                      Icons.close_rounded))
-                                            ],
-                                          ),
-                                          contentPadding: EdgeInsets.all(
-                                              MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  (2 / 153.6)),
-                                          content: Form(
-                                            key: _formKey,
-                                            child: SizedBox(
-                                              width: 700,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  const Divider(
-                                                    color: Colors.amber,
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: TextFormField(
-                                                      decoration:
-                                                          InputDecoration(
-                                                        hintText: 'Course Name',
-                                                        label: const Text(
-                                                            'Course Name'),
-                                                        enabledBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                            color: Colors.white,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                        focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColor,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                        fillColor:
-                                                            Colors.grey[100],
-                                                        filled: true,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: TextFormField(
-                                                      decoration:
-                                                          InputDecoration(
-                                                        hintText:
-                                                            'Course Category',
-                                                        label: const Text(
-                                                            'Course Category'),
-                                                        enabledBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                            color: Colors.white,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                        focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColor,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                        fillColor:
-                                                            Colors.grey[100],
-                                                        filled: true,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: TextFormField(
-                                                      decoration:
-                                                          InputDecoration(
-                                                        hintText:
-                                                            'Eg:3000 perm',
-                                                        label: const Text(
-                                                            'Course Payment Monthly'),
-                                                        enabledBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                            color: Colors.white,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                        focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColor,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                        fillColor:
-                                                            Colors.grey[100],
-                                                        filled: true,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: TextFormField(
-                                                      decoration:
-                                                          InputDecoration(
-                                                        hintText:
-                                                            'Eg:24k per year',
-                                                        label: const Text(
-                                                            'Course Payment Yearly'),
-                                                        enabledBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                            color: Colors.white,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                        focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColor,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                        fillColor:
-                                                            Colors.grey[100],
-                                                        filled: true,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: TextFormField(
-                                                      decoration:
-                                                          InputDecoration(
-                                                        hintText: 'Eg:5k',
-                                                        label: const Text(
-                                                            'Course Payment Price'),
-                                                        enabledBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                            color: Colors.white,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                        focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColor,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                        fillColor:
-                                                            Colors.grey[100],
-                                                        filled: true,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: TextFormField(
-                                                      decoration:
-                                                          InputDecoration(
-                                                        hintText: 'Eg:24months',
-                                                        label: const Text(
-                                                            'Course Duration'),
-                                                        enabledBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                            color: Colors.white,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                        focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColor,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                        fillColor:
-                                                            Colors.grey[100],
-                                                        filled: true,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          actions: [
-                                            Align(
-                                              alignment: Alignment.bottomRight,
-                                              child: Material(
-                                                color: Colors.amberAccent,
-                                                elevation: 4,
-                                                type: MaterialType.button,
-                                                child: MaterialButton(
-                                                  onPressed: () {},
-                                                  padding: EdgeInsets.all(
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .width /
-                                                          76.8),
-                                                  child: const Text(
-                                                    'Add New Category',
-                                                    style: TextStyle(),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    });
-                              },
-                              icon: const Icon(Icons.add_circle_outline),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width *
-                                  (1 / 153.6),
-                            ),
-                            Icon(
-                              _customTileExpanded
-                                  ? Icons.keyboard_arrow_up_outlined
-                                  : Icons.keyboard_arrow_down_outlined,
-                            ),
-                          ],
-                        ),
+                        trailing: CourseManagementExpansionTailing(
+                            formKey: _formKey,
+                            customTileExpanded: _customTileExpanded),
                         onExpansionChanged: (bool expanded) {
                           setState(() => _customTileExpanded = expanded);
                         },
@@ -408,6 +97,12 @@ class _CourseManagementState extends State<CourseManagement> {
                       child: ExpansionTile(
                         backgroundColor: Colors.white,
                         title: const Text('Web Development Course'),
+                        trailing: CourseManagementExpansionTailing(
+                            formKey: _formKey,
+                            customTileExpanded: _customTileExpanded),
+                        onExpansionChanged: (bool expanded) {
+                          setState(() => _customTileExpanded = expanded);
+                        },
                         children: [
                           Padding(
                             padding: EdgeInsets.symmetric(
@@ -449,6 +144,12 @@ class _CourseManagementState extends State<CourseManagement> {
                       child: ExpansionTile(
                         backgroundColor: Colors.white,
                         title: const Text('Backend Development Course'),
+                        trailing: CourseManagementExpansionTailing(
+                            formKey: _formKey,
+                            customTileExpanded: _customTileExpanded),
+                        onExpansionChanged: (bool expanded) {
+                          setState(() => _customTileExpanded = expanded);
+                        },
                         children: [
                           Padding(
                             padding: EdgeInsets.symmetric(
@@ -488,21 +189,22 @@ class _CourseManagementState extends State<CourseManagement> {
             ),
             Align(
               alignment: Alignment.bottomRight,
-              child: Material(
-                color: Colors.amberAccent,
-                elevation: 4,
-                type: MaterialType.button,
-                child: MaterialButton(
-                  onPressed: () {},
-                  padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.width / 76.8),
-                  child: Text(
-                    'Add New Course',
-                    style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width / 64,
+              child: BottomMaterialButton(
+                text: 'Add Course',
+                popUpChild: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    Divider(
+                      color: Colors.amber,
                     ),
-                  ),
+                    PopUpTextField(
+                        hint: 'Title', label: 'Title', widthRatio: 2),
+                  ],
                 ),
+                popUpactions: [
+                  SubmitButton(text: 'Add Course', onPressed: () {}),
+                ],
               ),
             ),
           ],
