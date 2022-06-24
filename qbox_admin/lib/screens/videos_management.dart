@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:qbox_admin/widgets/bottom_material_button.dart';
+import 'package:qbox_admin/widgets/pop_up_text_field.dart';
+import 'package:qbox_admin/widgets/submit_button.dart';
 
 class VideoManagement extends StatefulWidget {
   const VideoManagement({Key? key}) : super(key: key);
@@ -99,77 +102,215 @@ class _VideoManagementState extends State<VideoManagement> {
                                     'Description',
                                   )),
                                 ],
-                                rows: const [
+                                rows: [
                                   DataRow(cells: [
-                                    DataCell(Text('HTML Syntax')),
-                                    DataCell(Text('WEB DEVELOPMENT')),
-                                    DataCell(Text('Paid')),
-                                    DataCell(Text('Batch S')),
-                                    DataCell(Text('xx-xx-20xx')),
-                                    DataCell(Text('xx.xx')),
-                                    DataCell(Material(
-                                        type: MaterialType.canvas,
-                                        color: Colors.green,
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Text('Done'),
-                                        ))),
-                                    DataCell(Text('xx.xx')),
-                                    DataCell(Text(
+                                    const DataCell(Text('HTML Syntax')),
+                                    const DataCell(Text('WEB DEVELOPMENT')),
+                                    const DataCell(
+                                      Text('Software'),
+                                    ),
+                                    const DataCell(Text('Batch S')),
+                                    const DataCell(Text('xx-xx-20xx')),
+                                    const DataCell(Text('xx.xx')),
+                                    DataCell(BottomMaterialButton(
+                                      text: 'Edit',
+                                      isPadding: false,
+                                      popUpactions: [
+                                        SubmitButton(
+                                          text: 'Edit Video',
+                                          onPressed: () {},
+                                        )
+                                      ],
+                                      popUpChild: Wrap(
+                                        children: const [
+                                          Divider(
+                                            color: Colors.amber,
+                                          ),
+                                          PopUpTextField(
+                                              hint: 'WEB DEVELOPMENT | PART-1 ',
+                                              label: 'Title',
+                                              widthRatio: 2),
+                                          PopUpTextField(
+                                              hint: 'WEB DEVELOPMENT',
+                                              label: 'Course Name',
+                                              widthRatio: 2),
+                                          PopUpTextField(
+                                              hint: 'Web',
+                                              label: 'Category',
+                                              widthRatio: 1),
+                                          PopUpTextField(
+                                              hint: 'Batch S',
+                                              label: 'Batch',
+                                              widthRatio: 1),
+                                          PopUpTextField(
+                                              hint: 'DD-MM-YYYY',
+                                              label: 'Date',
+                                              widthRatio: 1),
+                                          PopUpTextField(
+                                              hint: 'HH-MM',
+                                              label: 'Time',
+                                              widthRatio: 1),
+                                        ],
+                                      ),
+                                    )),
+                                    const DataCell(Text('xx.xx')),
+                                    const DataCell(Text(
                                         '--------------------------------------------------------')),
                                   ]),
                                   DataRow(cells: [
-                                    DataCell(Text('HTML Syntax')),
-                                    DataCell(Text('WEB DEVELOPMENT')),
-                                    DataCell(Text('Free')),
-                                    DataCell(Text('Batch S')),
-                                    DataCell(Text('xx-xx-20xx')),
-                                    DataCell(Text('xx.xx')),
-                                    DataCell(Material(
-                                        type: MaterialType.canvas,
-                                        color: Colors.red,
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Text('Cancel'),
-                                        ))),
-                                    DataCell(Text('xx.xx')),
-                                    DataCell(Text(
+                                    const DataCell(Text('HTML Syntax')),
+                                    const DataCell(Text('WEB DEVELOPMENT')),
+                                    const DataCell(Text('Free')),
+                                    const DataCell(Text('Batch S')),
+                                    const DataCell(Text('xx-xx-20xx')),
+                                    const DataCell(Text('xx.xx')),
+                                    DataCell(BottomMaterialButton(
+                                      text: 'Edit',
+                                      isPadding: false,
+                                      popUpactions: [
+                                        SubmitButton(
+                                          text: 'Edit Video',
+                                          onPressed: () {},
+                                        )
+                                      ],
+                                      popUpChild: Wrap(
+                                        children: const [
+                                          Divider(
+                                            color: Colors.amber,
+                                          ),
+                                          PopUpTextField(
+                                              hint: 'WEB DEVELOPMENT | PART-1 ',
+                                              label: 'Title',
+                                              widthRatio: 2),
+                                          PopUpTextField(
+                                              hint: 'WEB DEVELOPMENT',
+                                              label: 'Course Name',
+                                              widthRatio: 2),
+                                          PopUpTextField(
+                                              hint: 'Web',
+                                              label: 'Category',
+                                              widthRatio: 1),
+                                          PopUpTextField(
+                                              hint: 'Batch S',
+                                              label: 'Batch',
+                                              widthRatio: 1),
+                                          PopUpTextField(
+                                              hint: 'DD-MM-YYYY',
+                                              label: 'Date',
+                                              widthRatio: 1),
+                                          PopUpTextField(
+                                              hint: 'HH-MM',
+                                              label: 'Time',
+                                              widthRatio: 1),
+                                        ],
+                                      ),
+                                    )),
+                                    const DataCell(Text('xx.xx')),
+                                    const DataCell(Text(
                                         '--------------------------------------------------------')),
                                   ]),
                                   DataRow(cells: [
-                                    DataCell(Text('HTML Syntax')),
-                                    DataCell(Text('WEB DEVELOPMENT')),
-                                    DataCell(Text('Paid')),
-                                    DataCell(Text('Batch S')),
-                                    DataCell(Text('xx-xx-20xx')),
-                                    DataCell(Text('xx.xx')),
-                                    DataCell(Material(
-                                        type: MaterialType.canvas,
-                                        color: Colors.green,
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Text('Done'),
-                                        ))),
-                                    DataCell(Text('xx.xx')),
-                                    DataCell(Text(
+                                    const DataCell(Text('HTML Syntax')),
+                                    const DataCell(Text('WEB DEVELOPMENT')),
+                                    const DataCell(Text('Paid')),
+                                    const DataCell(Text('Batch S')),
+                                    const DataCell(Text('xx-xx-20xx')),
+                                    const DataCell(Text('xx.xx')),
+                                    DataCell(BottomMaterialButton(
+                                      text: 'Edit',
+                                      isPadding: false,
+                                      popUpactions: [
+                                        SubmitButton(
+                                          text: 'Edit Video',
+                                          onPressed: () {},
+                                        )
+                                      ],
+                                      popUpChild: Wrap(
+                                        children: const [
+                                          Divider(
+                                            color: Colors.amber,
+                                          ),
+                                          PopUpTextField(
+                                              hint: 'WEB DEVELOPMENT | PART-1 ',
+                                              label: 'Title',
+                                              widthRatio: 2),
+                                          PopUpTextField(
+                                              hint: 'WEB DEVELOPMENT',
+                                              label: 'Course Name',
+                                              widthRatio: 2),
+                                          PopUpTextField(
+                                              hint: 'Web',
+                                              label: 'Category',
+                                              widthRatio: 1),
+                                          PopUpTextField(
+                                              hint: 'Batch S',
+                                              label: 'Batch',
+                                              widthRatio: 1),
+                                          PopUpTextField(
+                                              hint: 'DD-MM-YYYY',
+                                              label: 'Date',
+                                              widthRatio: 1),
+                                          PopUpTextField(
+                                              hint: 'HH-MM',
+                                              label: 'Time',
+                                              widthRatio: 1),
+                                        ],
+                                      ),
+                                    )),
+                                    const DataCell(Text('xx.xx')),
+                                    const DataCell(Text(
                                         '--------------------------------------------------------')),
                                   ]),
                                   DataRow(cells: [
-                                    DataCell(Text('HTML Syntax')),
-                                    DataCell(Text('WEB DEVELOPMENT')),
-                                    DataCell(Text('Free')),
-                                    DataCell(Text('Batch S')),
-                                    DataCell(Text('xx-xx-20xx')),
-                                    DataCell(Text('xx.xx')),
-                                    DataCell(Material(
-                                        type: MaterialType.canvas,
-                                        color: Colors.green,
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Text('Done'),
-                                        ))),
-                                    DataCell(Text('xx.xx')),
-                                    DataCell(Text(
+                                    const DataCell(Text('HTML Syntax')),
+                                    const DataCell(Text('WEB DEVELOPMENT')),
+                                    const DataCell(Text('Free')),
+                                    const DataCell(Text('Batch S')),
+                                    const DataCell(Text('xx-xx-20xx')),
+                                    const DataCell(Text('xx.xx')),
+                                    DataCell(BottomMaterialButton(
+                                      text: 'Edit',
+                                      isPadding: false,
+                                      popUpactions: [
+                                        SubmitButton(
+                                          text: 'Edit Video',
+                                          onPressed: () {},
+                                        )
+                                      ],
+                                      popUpChild: Wrap(
+                                        children: const [
+                                          Divider(
+                                            color: Colors.amber,
+                                          ),
+                                          PopUpTextField(
+                                              hint: 'WEB DEVELOPMENT | PART-1 ',
+                                              label: 'Title',
+                                              widthRatio: 2),
+                                          PopUpTextField(
+                                              hint: 'WEB DEVELOPMENT',
+                                              label: 'Course Name',
+                                              widthRatio: 2),
+                                          PopUpTextField(
+                                              hint: 'Web',
+                                              label: 'Category',
+                                              widthRatio: 1),
+                                          PopUpTextField(
+                                              hint: 'Batch S',
+                                              label: 'Batch',
+                                              widthRatio: 1),
+                                          PopUpTextField(
+                                              hint: 'DD-MM-YYYY',
+                                              label: 'Date',
+                                              widthRatio: 1),
+                                          PopUpTextField(
+                                              hint: 'HH-MM',
+                                              label: 'Time',
+                                              widthRatio: 1),
+                                        ],
+                                      ),
+                                    )),
+                                    const DataCell(Text('xx.xx')),
+                                    const DataCell(Text(
                                         '--------------------------------------------------------')),
                                   ]),
                                 ],
@@ -282,8 +423,8 @@ class _VideoManagementState extends State<VideoManagement> {
                                     DataCell(Text('xx.xx')),
                                     DataCell(Material(
                                         type: MaterialType.canvas,
-                                        color: Colors.red,
-                                        child: Text('Cancelled'))),
+                                        color: Colors.green,
+                                        child: Text('Done'))),
                                     DataCell(Text('xx.xx')),
                                     DataCell(Text(
                                         '--------------------------------------------------------')),
@@ -373,65 +514,229 @@ class _VideoManagementState extends State<VideoManagement> {
                                     'Description',
                                   )),
                                 ],
-                                rows: const [
+                                rows: [
                                   DataRow(cells: [
-                                    DataCell(Text('HTML Syntax')),
-                                    DataCell(Text('WEB DEVELOPMENT')),
-                                    DataCell(Text('Software')),
-                                    DataCell(Text('Batch S')),
-                                    DataCell(Text('xx-xx-20xx')),
-                                    DataCell(Text('xx.xx')),
-                                    DataCell(Material(
-                                        type: MaterialType.canvas,
-                                        color: Colors.green,
-                                        child: Text('Done'))),
-                                    DataCell(Text('xx.xx')),
-                                    DataCell(Text(
+                                    const DataCell(Text('HTML Syntax')),
+                                    const DataCell(Text('WEB DEVELOPMENT')),
+                                    const DataCell(Text('Software')),
+                                    const DataCell(Text('Batch S')),
+                                    const DataCell(Text('xx-xx-20xx')),
+                                    const DataCell(Text('xx.xx')),
+                                    DataCell(
+                                      BottomMaterialButton(
+                                        text: 'Reshedule',
+                                        isPadding: false,
+                                        buttonColor: Colors.blueAccent,
+                                        popUpactions: [
+                                          SubmitButton(
+                                            text: 'Edit Video',
+                                            onPressed: () {},
+                                          )
+                                        ],
+                                        popUpChild: Wrap(
+                                          children: const [
+                                            Divider(
+                                              color: Colors.amber,
+                                            ),
+                                            PopUpTextField(
+                                                hint:
+                                                    'WEB DEVELOPMENT | PART-1 ',
+                                                label: 'Title',
+                                                widthRatio: 2),
+                                            PopUpTextField(
+                                                hint: 'WEB DEVELOPMENT',
+                                                label: 'Course Name',
+                                                widthRatio: 2),
+                                            PopUpTextField(
+                                                hint: 'Web',
+                                                label: 'Category',
+                                                widthRatio: 1),
+                                            PopUpTextField(
+                                                hint: 'Batch S',
+                                                label: 'Batch',
+                                                widthRatio: 1),
+                                            PopUpTextField(
+                                                hint: 'DD-MM-YYYY',
+                                                label: 'Date',
+                                                widthRatio: 1),
+                                            PopUpTextField(
+                                                hint: 'HH-MM',
+                                                label: 'Time',
+                                                widthRatio: 1),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    const DataCell(Text('xx.xx')),
+                                    const DataCell(Text(
                                         '--------------------------------')),
                                   ]),
                                   DataRow(cells: [
-                                    DataCell(Text('HTML Syntax')),
-                                    DataCell(Text('WEB DEVELOPMENT')),
-                                    DataCell(Text('Software')),
-                                    DataCell(Text('Batch S')),
-                                    DataCell(Text('xx-xx-20xx')),
-                                    DataCell(Text('xx.xx')),
-                                    DataCell(Material(
-                                        type: MaterialType.canvas,
-                                        color: Colors.green,
-                                        child: Text('Done'))),
-                                    DataCell(Text('xx.xx')),
-                                    DataCell(Text(
+                                    const DataCell(Text('HTML Syntax')),
+                                    const DataCell(Text('WEB DEVELOPMENT')),
+                                    const DataCell(Text('Software')),
+                                    const DataCell(Text('Batch S')),
+                                    const DataCell(Text('xx-xx-20xx')),
+                                    const DataCell(Text('xx.xx')),
+                                    DataCell(
+                                      BottomMaterialButton(
+                                        text: 'Reshedule',
+                                        isPadding: false,
+                                        buttonColor: Colors.blueAccent,
+                                        popUpactions: [
+                                          SubmitButton(
+                                            text: 'Edit Video',
+                                            onPressed: () {},
+                                          )
+                                        ],
+                                        popUpChild: Wrap(
+                                          children: const [
+                                            Divider(
+                                              color: Colors.amber,
+                                            ),
+                                            PopUpTextField(
+                                                hint:
+                                                    'WEB DEVELOPMENT | PART-1 ',
+                                                label: 'Title',
+                                                widthRatio: 2),
+                                            PopUpTextField(
+                                                hint: 'WEB DEVELOPMENT',
+                                                label: 'Course Name',
+                                                widthRatio: 2),
+                                            PopUpTextField(
+                                                hint: 'Web',
+                                                label: 'Category',
+                                                widthRatio: 1),
+                                            PopUpTextField(
+                                                hint: 'Batch S',
+                                                label: 'Batch',
+                                                widthRatio: 1),
+                                            PopUpTextField(
+                                                hint: 'DD-MM-YYYY',
+                                                label: 'Date',
+                                                widthRatio: 1),
+                                            PopUpTextField(
+                                                hint: 'HH-MM',
+                                                label: 'Time',
+                                                widthRatio: 1),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    const DataCell(Text('xx.xx')),
+                                    const DataCell(Text(
                                         '--------------------------------')),
                                   ]),
                                   DataRow(cells: [
-                                    DataCell(Text('HTML Syntax')),
-                                    DataCell(Text('WEB DEVELOPMENT')),
-                                    DataCell(Text('Software')),
-                                    DataCell(Text('Batch S')),
-                                    DataCell(Text('xx-xx-20xx')),
-                                    DataCell(Text('xx.xx')),
-                                    DataCell(Material(
-                                        type: MaterialType.canvas,
-                                        color: Colors.red,
-                                        child: Text('Cancel'))),
-                                    DataCell(Text('xx.xx')),
-                                    DataCell(Text(
+                                    const DataCell(Text('HTML Syntax')),
+                                    const DataCell(Text('WEB DEVELOPMENT')),
+                                    const DataCell(Text('Software')),
+                                    const DataCell(Text('Batch S')),
+                                    const DataCell(Text('xx-xx-20xx')),
+                                    const DataCell(Text('xx.xx')),
+                                    DataCell(
+                                      BottomMaterialButton(
+                                        text: 'Reshedule',
+                                        isPadding: false,
+                                        buttonColor: Colors.blueAccent,
+                                        popUpactions: [
+                                          SubmitButton(
+                                            text: 'Edit Video',
+                                            onPressed: () {},
+                                          )
+                                        ],
+                                        popUpChild: Wrap(
+                                          children: const [
+                                            Divider(
+                                              color: Colors.amber,
+                                            ),
+                                            PopUpTextField(
+                                                hint:
+                                                    'WEB DEVELOPMENT | PART-1 ',
+                                                label: 'Title',
+                                                widthRatio: 2),
+                                            PopUpTextField(
+                                                hint: 'WEB DEVELOPMENT',
+                                                label: 'Course Name',
+                                                widthRatio: 2),
+                                            PopUpTextField(
+                                                hint: 'Web',
+                                                label: 'Category',
+                                                widthRatio: 1),
+                                            PopUpTextField(
+                                                hint: 'Batch S',
+                                                label: 'Batch',
+                                                widthRatio: 1),
+                                            PopUpTextField(
+                                                hint: 'DD-MM-YYYY',
+                                                label: 'Date',
+                                                widthRatio: 1),
+                                            PopUpTextField(
+                                                hint: 'HH-MM',
+                                                label: 'Time',
+                                                widthRatio: 1),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    const DataCell(Text('xx.xx')),
+                                    const DataCell(Text(
                                         '--------------------------------')),
                                   ]),
                                   DataRow(cells: [
-                                    DataCell(Text('HTML Syntax')),
-                                    DataCell(Text('WEB DEVELOPMENT')),
-                                    DataCell(Text('Software')),
-                                    DataCell(Text('Batch S')),
-                                    DataCell(Text('xx-xx-20xx')),
-                                    DataCell(Text('xx.xx')),
-                                    DataCell(Material(
-                                        type: MaterialType.canvas,
-                                        color: Colors.green,
-                                        child: Text('Done'))),
-                                    DataCell(Text('xx.xx')),
-                                    DataCell(Text(
+                                    const DataCell(Text('HTML Syntax')),
+                                    const DataCell(Text('WEB DEVELOPMENT')),
+                                    const DataCell(Text('Software')),
+                                    const DataCell(Text('Batch S')),
+                                    const DataCell(Text('xx-xx-20xx')),
+                                    const DataCell(Text('xx.xx')),
+                                    DataCell(
+                                      BottomMaterialButton(
+                                        text: 'Reshedule',
+                                        isPadding: false,
+                                        buttonColor: Colors.blueAccent,
+                                        popUpactions: [
+                                          SubmitButton(
+                                            text: 'Edit Video',
+                                            onPressed: () {},
+                                          )
+                                        ],
+                                        popUpChild: Wrap(
+                                          children: const [
+                                            Divider(
+                                              color: Colors.amber,
+                                            ),
+                                            PopUpTextField(
+                                                hint:
+                                                    'WEB DEVELOPMENT | PART-1 ',
+                                                label: 'Title',
+                                                widthRatio: 2),
+                                            PopUpTextField(
+                                                hint: 'WEB DEVELOPMENT',
+                                                label: 'Course Name',
+                                                widthRatio: 2),
+                                            PopUpTextField(
+                                                hint: 'Web',
+                                                label: 'Category',
+                                                widthRatio: 1),
+                                            PopUpTextField(
+                                                hint: 'Batch S',
+                                                label: 'Batch',
+                                                widthRatio: 1),
+                                            PopUpTextField(
+                                                hint: 'DD-MM-YYYY',
+                                                label: 'Date',
+                                                widthRatio: 1),
+                                            PopUpTextField(
+                                                hint: 'HH-MM',
+                                                label: 'Time',
+                                                widthRatio: 1),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    const DataCell(Text('xx.xx')),
+                                    const DataCell(Text(
                                         '--------------------------------')),
                                   ]),
                                 ],
@@ -447,20 +752,35 @@ class _VideoManagementState extends State<VideoManagement> {
             ),
             Align(
               alignment: Alignment.bottomRight,
-              child: Material(
-                color: Colors.amberAccent,
-                elevation: 4,
-                type: MaterialType.button,
-                child: MaterialButton(
-                  onPressed: () {},
-                  padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.width / 76.8),
-                  child: Text(
-                    'Schedule Video',
-                    style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width / 64,
+              child: BottomMaterialButton(
+                text: 'Schedule Video',
+                popUpactions: [
+                  SubmitButton(
+                    text: 'Add Video',
+                    onPressed: () {},
+                  )
+                ],
+                popUpChild: Wrap(
+                  children: const [
+                    Divider(
+                      color: Colors.amber,
                     ),
-                  ),
+                    PopUpTextField(
+                        hint: 'WEB DEVELOPMENT | PART-1 ',
+                        label: 'Title',
+                        widthRatio: 2),
+                    PopUpTextField(
+                        hint: 'WEB DEVELOPMENT',
+                        label: 'Course Name',
+                        widthRatio: 2),
+                    PopUpTextField(
+                        hint: 'Web', label: 'Category', widthRatio: 1),
+                    PopUpTextField(
+                        hint: 'Batch S', label: 'Batch', widthRatio: 1),
+                    PopUpTextField(
+                        hint: 'DD-MM-YYYY', label: 'Date', widthRatio: 1),
+                    PopUpTextField(hint: 'HH-MM', label: 'Time', widthRatio: 1),
+                  ],
                 ),
               ),
             ),

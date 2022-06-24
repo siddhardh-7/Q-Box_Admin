@@ -58,9 +58,9 @@ class _TestManagementState extends State<TestManagement> {
                               color: Colors.amber,
                             ),
                           ),
-                          TestTile(title: 'CSE test'),
-                          TestTile(title: 'ECE Test'),
-                          TestTile(title: 'EEE test'),
+                          const TestTile(title: 'CSE test'),
+                          const TestTile(title: 'ECE Test'),
+                          const TestTile(title: 'EEE test'),
                           const SizedBox(),
                         ],
                       ),
@@ -81,15 +81,15 @@ class _TestManagementState extends State<TestManagement> {
                               color: Colors.amber,
                             ),
                           ),
-                          TestTile(
+                          const TestTile(
                             title: 'HTML/CSS/Javascript',
                             download: true,
                           ),
-                          TestTile(
+                          const TestTile(
                             title: 'Angular',
                             download: true,
                           ),
-                          TestTile(
+                          const TestTile(
                             title: 'Vue',
                             download: true,
                           ),
@@ -113,9 +113,9 @@ class _TestManagementState extends State<TestManagement> {
                               color: Colors.amber,
                             ),
                           ),
-                          TestTile(title: 'Node.js'),
-                          TestTile(title: 'django'),
-                          TestTile(
+                          const TestTile(title: 'Node.js'),
+                          const TestTile(title: 'django'),
+                          const TestTile(
                             title: 'MySql',
                           ),
                         ],
