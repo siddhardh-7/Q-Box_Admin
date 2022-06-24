@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:qbox_admin/widgets/bottom_material_button.dart';
+import 'package:qbox_admin/widgets/pop_up_text_field.dart';
+import 'package:qbox_admin/widgets/submit_button.dart';
 
 class FreeVideoManagement extends StatefulWidget {
   const FreeVideoManagement({Key? key}) : super(key: key);
@@ -160,20 +163,39 @@ class _FreeVideoManagementState extends State<FreeVideoManagement> {
             ),
             Align(
               alignment: Alignment.bottomRight,
-              child: Material(
-                color: Colors.amberAccent,
-                elevation: 4,
-                type: MaterialType.button,
-                child: MaterialButton(
-                  onPressed: () {},
-                  padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.width / 76.8),
-                  child: Text(
-                    'Add Free Video',
-                    style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width / 64,
+              child: BottomMaterialButton(
+                text: 'Add Video',
+                popUpactions: [
+                  SubmitButton(
+                    text: 'Add Video',
+                    onPressed: () {},
+                  )
+                ],
+                popUpChild: Wrap(
+                  children: const [
+                    Divider(
+                      color: Colors.amber,
                     ),
-                  ),
+                    PopUpTextField(
+                        hint: 'WEB DEVELOPMENT | PART-1 ',
+                        label: 'Title',
+                        widthRatio: 2),
+                    PopUpTextField(
+                        hint: 'WEB DEVELOPMENT',
+                        label: 'Course Name',
+                        widthRatio: 2),
+                    PopUpTextField(
+                        hint: 'Web', label: 'Category', widthRatio: 1),
+                    PopUpTextField(
+                        hint: 'Batch S', label: 'Batch', widthRatio: 1),
+                    PopUpTextField(
+                        hint: 'DD-MM-YYYY', label: 'Date', widthRatio: 1),
+                    PopUpTextField(hint: 'HH-MM', label: 'Time', widthRatio: 1),
+                    PopUpTextField(
+                        hint: 'Pick A File',
+                        label: 'Upload Video',
+                        widthRatio: 2),
+                  ],
                 ),
               ),
             ),
