@@ -75,7 +75,7 @@ class _PracticeManagementState extends State<PracticeManagement> {
                       widthRatio: 1,
                       children: [
                         DropdownButton(
-                          underline: SizedBox(),
+                          underline: const SizedBox(),
                           elevation: 0,
                           dropdownColor: Colors.amberAccent.withOpacity(0.7),
                           focusColor: Colors.white,
@@ -99,7 +99,7 @@ class _PracticeManagementState extends State<PracticeManagement> {
                       widthRatio: 1,
                       children: [
                         DropdownButton(
-                          underline: SizedBox(),
+                          underline: const SizedBox(),
                           elevation: 0,
                           dropdownColor: Colors.amberAccent.withOpacity(0.7),
                           focusColor: Colors.white,
@@ -123,7 +123,7 @@ class _PracticeManagementState extends State<PracticeManagement> {
                       widthRatio: 2,
                       children: [
                         DropdownButton(
-                          underline: SizedBox(),
+                          underline: const SizedBox(),
                           elevation: 0,
                           dropdownColor: Colors.amberAccent.withOpacity(0.7),
                           focusColor: Colors.white,
@@ -155,7 +155,7 @@ class _PracticeManagementState extends State<PracticeManagement> {
                     SubmitButton(text: 'Add Chapter', onPressed: () {})
                   ],
                   popUpChild: Wrap(
-                    children: [
+                    children: const [
                       PopUpTextField(
                           hint: 'Course', label: 'Course Name', widthRatio: 2),
                       PopUpTextField(
@@ -178,18 +178,23 @@ class _PracticeManagementState extends State<PracticeManagement> {
                         color: Colors.amber,
                       ),
                       PopUpTextField(
+                        hint: '',
+                        label: 'Test Name',
+                        widthRatio: 2,
+                      ),
+                      PopUpTextField(
                         hint: 'web',
                         label: 'Course Name',
                         widthRatio: 1,
                       ),
                       PopUpTextField(
-                        hint: 'web',
-                        label: 'Chapter Name',
+                        hint: 'B.Tech',
+                        label: 'Category',
                         widthRatio: 1,
                       ),
                       PopUpTextField(
-                        hint: 'B.Tech',
-                        label: 'Category',
+                        hint: 'web',
+                        label: 'Chapter Name',
                         widthRatio: 1,
                       ),
                       PopUpTextField(

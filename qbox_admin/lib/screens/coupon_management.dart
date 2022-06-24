@@ -11,8 +11,6 @@ class CouponManagement extends StatefulWidget {
 }
 
 class _CouponManagementState extends State<CouponManagement> {
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
