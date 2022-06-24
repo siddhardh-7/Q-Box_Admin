@@ -150,6 +150,10 @@ class _VideoManagementState extends State<VideoManagement> {
                                               hint: 'HH-MM',
                                               label: 'Time',
                                               widthRatio: 1),
+                                          PopUpTextField(
+                                              hint: 'Pick A File',
+                                              label: 'Upload Video',
+                                              widthRatio: 2),
                                         ],
                                       ),
                                     )),
@@ -202,6 +206,10 @@ class _VideoManagementState extends State<VideoManagement> {
                                               hint: 'HH-MM',
                                               label: 'Time',
                                               widthRatio: 1),
+                                          PopUpTextField(
+                                              hint: 'Pick A File',
+                                              label: 'Upload Video',
+                                              widthRatio: 2),
                                         ],
                                       ),
                                     )),
@@ -254,6 +262,10 @@ class _VideoManagementState extends State<VideoManagement> {
                                               hint: 'HH-MM',
                                               label: 'Time',
                                               widthRatio: 1),
+                                          PopUpTextField(
+                                              hint: 'Pick A File',
+                                              label: 'Upload Video',
+                                              widthRatio: 2),
                                         ],
                                       ),
                                     )),
@@ -306,6 +318,10 @@ class _VideoManagementState extends State<VideoManagement> {
                                               hint: 'HH-MM',
                                               label: 'Time',
                                               widthRatio: 1),
+                                          PopUpTextField(
+                                              hint: 'Pick A File',
+                                              label: 'Upload Video',
+                                              widthRatio: 2),
                                         ],
                                       ),
                                     )),
@@ -563,6 +579,10 @@ class _VideoManagementState extends State<VideoManagement> {
                                                 hint: 'HH-MM',
                                                 label: 'Time',
                                                 widthRatio: 1),
+                                            PopUpTextField(
+                                                hint: 'Pick A File',
+                                                label: 'Upload Video',
+                                                widthRatio: 2),
                                           ],
                                         ),
                                       ),
@@ -619,6 +639,10 @@ class _VideoManagementState extends State<VideoManagement> {
                                                 hint: 'HH-MM',
                                                 label: 'Time',
                                                 widthRatio: 1),
+                                            PopUpTextField(
+                                                hint: 'Pick A File',
+                                                label: 'Upload Video',
+                                                widthRatio: 2),
                                           ],
                                         ),
                                       ),
@@ -675,6 +699,10 @@ class _VideoManagementState extends State<VideoManagement> {
                                                 hint: 'HH-MM',
                                                 label: 'Time',
                                                 widthRatio: 1),
+                                            PopUpTextField(
+                                                hint: 'Pick A File',
+                                                label: 'Upload Video',
+                                                widthRatio: 2),
                                           ],
                                         ),
                                       ),
@@ -731,6 +759,10 @@ class _VideoManagementState extends State<VideoManagement> {
                                                 hint: 'HH-MM',
                                                 label: 'Time',
                                                 widthRatio: 1),
+                                            PopUpTextField(
+                                                hint: 'Pick A File',
+                                                label: 'Upload Video',
+                                                widthRatio: 2),
                                           ],
                                         ),
                                       ),
@@ -780,6 +812,10 @@ class _VideoManagementState extends State<VideoManagement> {
                     PopUpTextField(
                         hint: 'DD-MM-YYYY', label: 'Date', widthRatio: 1),
                     PopUpTextField(hint: 'HH-MM', label: 'Time', widthRatio: 1),
+                    PopUpTextField(
+                        hint: 'Pick A File',
+                        label: 'Upload Video',
+                        widthRatio: 2),
                   ],
                 ),
               ),
