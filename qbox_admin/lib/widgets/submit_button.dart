@@ -23,7 +23,7 @@ class _SubmitButtonState extends State<SubmitButton> {
         child: Text(
           widget.text,
           style: TextStyle(
-            fontSize: MediaQuery.of(context).size.width / 64,
+            fontSize: MediaQuery.of(context).size.width / 86,
             color: Colors.black,
           ),
         ),

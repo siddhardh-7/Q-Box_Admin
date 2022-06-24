@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:qbox_admin/widgets/bottom_material_button.dart';
+import 'package:qbox_admin/widgets/pop_up_text_field.dart';
+import 'package:qbox_admin/widgets/submit_button.dart';
 
 class CouponManagement extends StatefulWidget {
   const CouponManagement({Key? key}) : super(key: key);
@@ -125,233 +128,32 @@ class _CouponManagementState extends State<CouponManagement> {
                 color: Colors.amberAccent,
                 elevation: 4,
                 type: MaterialType.button,
-                child: MaterialButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return SingleChildScrollView(
-                            child: AlertDialog(
-                              title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text('Add New Course Category'),
-                                  IconButton(
-                                      onPressed: () {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop();
-                                      },
-                                      icon: const Icon(Icons.close_rounded))
-                                ],
-                              ),
-                              contentPadding: EdgeInsets.all(
-                                  MediaQuery.of(context).size.width *
-                                      (2 / 153.6)),
-                              content: Form(
-                                key: _formKey,
-                                child: SizedBox(
-                                  width: 700,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      const Divider(
-                                        color: Colors.amber,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: TextFormField(
-                                          decoration: InputDecoration(
-                                            hintText: 'Title',
-                                            label: const Text('Title'),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                color: Colors.white,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            fillColor: Colors.grey[100],
-                                            filled: true,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: TextFormField(
-                                          decoration: InputDecoration(
-                                            hintText: 'Discount',
-                                            label: const Text('Discount'),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                color: Colors.white,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            fillColor: Colors.grey[100],
-                                            filled: true,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: TextFormField(
-                                          decoration: InputDecoration(
-                                            hintText: 'Coupon Code',
-                                            label: const Text('Coupon Code'),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                color: Colors.white,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            fillColor: Colors.grey[100],
-                                            filled: true,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: TextFormField(
-                                          decoration: InputDecoration(
-                                            hintText: 'Category',
-                                            label: const Text('Category'),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                color: Colors.white,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            fillColor: Colors.grey[100],
-                                            filled: true,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: TextFormField(
-                                          decoration: InputDecoration(
-                                            hintText: 'Expiry Date',
-                                            label: const Text('Expiry Date'),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                color: Colors.white,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            fillColor: Colors.grey[100],
-                                            filled: true,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: TextFormField(
-                                          decoration: InputDecoration(
-                                            hintText: 'Description',
-                                            label: const Text('Description'),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                color: Colors.white,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            fillColor: Colors.grey[100],
-                                            filled: true,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              actions: [
-                                Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: Material(
-                                    color: Colors.amberAccent,
-                                    elevation: 4,
-                                    type: MaterialType.button,
-                                    child: MaterialButton(
-                                      onPressed: () {},
-                                      padding: EdgeInsets.all(
-                                          MediaQuery.of(context).size.width /
-                                              76.8),
-                                      child: const Text(
-                                        'Add New Category',
-                                        style: TextStyle(),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        });
-                  },
-                  padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.width / 76.8),
-                  child: Text(
-                    'Add Coupon',
-                    style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width / 64,
-                    ),
+                child: BottomMaterialButton(
+                  text: 'Add Coupon',
+                  popUpChild: Wrap(
+                    children: const [
+                      Divider(
+                        color: Colors.amber,
+                      ),
+                      PopUpTextField(
+                          hint: 'Title', label: 'Title', widthRatio: 2),
+                      PopUpTextField(
+                          hint: '12%', label: 'Discount', widthRatio: 1),
+                      PopUpTextField(
+                          hint: 'ZSCVFGV', label: 'Coupon Code', widthRatio: 1),
+                      PopUpTextField(
+                          hint: 'Jee', label: 'Category', widthRatio: 1),
+                      PopUpTextField(
+                          hint: 'DD-MM-YYYY',
+                          label: 'Expiry Date',
+                          widthRatio: 1),
+                      PopUpTextField(
+                          hint: '', label: 'Description', widthRatio: 2),
+                    ],
                   ),
+                  popUpactions: [
+                    SubmitButton(text: 'Add Coupon', onPressed: () {})
+                  ],
                 ),
               ),
             ),
