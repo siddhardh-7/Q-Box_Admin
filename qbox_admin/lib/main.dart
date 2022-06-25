@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:qbox_admin/screens/auth/sign_in.dart';
+import 'package:qbox_admin/screens/auth/sign_up.dart';
 import 'package:qbox_admin/screens/home_page.dart';
 
 void main() {
@@ -25,8 +27,11 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xFFFFC600),
         primarySwatch: Colors.amber,
       ),
-      routes: const {},
-      home: const HomePage(),
+      routes: {
+        SignIn.routeName: (_) => const SignIn(),
+        SignUp.routeName: (_) => const SignUp(),
+      },
+      home: const SignIn(),
     );
   }
 }
