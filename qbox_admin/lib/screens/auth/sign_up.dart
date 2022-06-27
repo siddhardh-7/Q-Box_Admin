@@ -1,5 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:qbox_admin/models/user_model.dart';
 import 'package:qbox_admin/screens/auth/sign_in.dart';
+import 'package:qbox_admin/screens/home_page.dart';
 import 'package:qbox_admin/utilities/dimensions.dart';
 
 class SignUp extends StatefulWidget {
@@ -13,7 +18,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   bool _signUpFetching = false;
   final _formKey = GlobalKey<FormState>();
-  //final _auth = FirebaseAuth.instance;
+  final _auth = FirebaseAuth.instance;
   String? errorMessage;
 
   final _emailController = TextEditingController();
@@ -63,7 +68,7 @@ class _SignUpState extends State<SignUp> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
-                'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'),
+                'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8Ym9vayUyMGNvdmVyfGVufDB8MHwwfHllbGxvd3w%3D&auto=format&fit=crop&w=500&q=60'),
             fit: BoxFit.cover,
           ),
         ),
@@ -413,48 +418,48 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
-  //
-  // Future<void> signUp() async {
-  //   if (_formKey.currentState!.validate()) {
-  //     final _email = _emailController.text.trim();
-  //     try {
-  //       await _auth
-  //           .createUserWithEmailAndPassword(
-  //           email: _email, password: _passwordController.text.trim())
-  //           .then((uid) => {
-  //         setState(() {
-  //           _signUpFetching = false;
-  //         }),
-  //         Fluttertoast.showToast(msg: 'Sign Up Successful'),
-  //         Navigator.popAndPushNamed(context, Explore.routeName),
-  //       });
-  //       await FirebaseFirestore.instance
-  //           .collection('users')
-  //           .doc('${_email}')
-  //           .set(UserModel(
-  //           firstName: _firstNameController.text.trim(),
-  //           lastName: _lastNameController.text.trim(),
-  //           age: int.parse(_ageController.text.trim()),
-  //           email: _emailController.text.trim())
-  //           .toJson())
-  //           .then((value) => print("User Added"))
-  //           .catchError((error) => print("Failed to add user: $error"));
-  //     } on FirebaseAuthException catch (error) {
-  //       switch (error.code) {
-  //         case "too-many-requests":
-  //           errorMessage = "Too many requests";
-  //           break;
-  //         case "operation-not-allowed":
-  //           errorMessage = "Signing in with Email and Password is not enabled.";
-  //           break;
-  //         default:
-  //           errorMessage = "An undefined Error happened.";
-  //       }
-  //       Fluttertoast.showToast(msg: errorMessage!);
-  //     }
-  //   }
-  //   setState(() {
-  //     _signUpFetching = false;
-  //   });
-  // }
+
+  Future<void> signUp() async {
+    if (_formKey.currentState!.validate()) {
+      final email = _emailController.text.trim();
+      try {
+        await _auth
+            .createUserWithEmailAndPassword(
+                email: email, password: _passwordController.text.trim())
+            .then((uid) => {
+                  setState(() {
+                    _signUpFetching = false;
+                  }),
+                  Fluttertoast.showToast(msg: 'Sign Up Successful'),
+                  Navigator.popAndPushNamed(context, HomePage.routeName),
+                });
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(email)
+            .set(UserModel(
+                    firstName: _firstNameController.text.trim(),
+                    lastName: _lastNameController.text.trim(),
+                    age: int.parse(_ageController.text.trim()),
+                    email: _emailController.text.trim())
+                .toJson())
+            .then((value) => print("User Added"))
+            .catchError((error) => print("Failed to add user: $error"));
+      } on FirebaseAuthException catch (error) {
+        switch (error.code) {
+          case "too-many-requests":
+            errorMessage = "Too many requests";
+            break;
+          case "operation-not-allowed":
+            errorMessage = "Signing in with Email and Password is not enabled.";
+            break;
+          default:
+            errorMessage = "An undefined Error happened.";
+        }
+        Fluttertoast.showToast(msg: errorMessage!);
+      }
+    }
+    setState(() {
+      _signUpFetching = false;
+    });
+  }
 }

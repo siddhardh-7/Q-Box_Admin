@@ -25,6 +25,7 @@ enum Management {
 }
 
 class HomePage extends StatefulWidget {
+  static String routeName = 'homePage';
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -81,15 +82,12 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width / 153.6,
                           ),
-                          FittedBox(
-                            fit: BoxFit.fitWidth,
-                            child: Text(
-                              'Indrajit Sikdar',
-                              style: TextStyle(
-                                  fontSize: MediaQuery.of(context).size.width /
-                                      69.8181818,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                          Text(
+                            'Indrajit Sikdar',
+                            style: TextStyle(
+                                fontSize: MediaQuery.of(context).size.width /
+                                    69.8181818,
+                                fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),

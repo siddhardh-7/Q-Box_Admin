@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:qbox_admin/screens/auth/sign_up.dart';
+import 'package:qbox_admin/screens/home_page.dart';
 import 'package:qbox_admin/utilities/dimensions.dart';
 
 class SignIn extends StatefulWidget {
@@ -12,6 +15,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  final _auth = FirebaseAuth.instance;
   bool _signInFetching = false;
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
@@ -54,7 +58,7 @@ class _SignInState extends State<SignIn> {
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(
-                  'https://images.unsplash.com/photo-1619824130478-2fb945b98ae1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZWR1Y2F0aW9ufGVufDB8MHwwfHllbGxvd3w%3D&auto=format&fit=crop&w=500&q=60'),
+                  'https://images.pexels.com/photos/5412500/pexels-photo-5412500.jpeg?auto=compress&cs=tinysrgb&w=600'),
               fit: BoxFit.cover,
             ),
           ),
@@ -185,8 +189,8 @@ class _SignInState extends State<SignIn> {
                               setState(() {
                                 _signInFetching = true;
                               });
-                              //   signIn(
-                              //       _emailController.text, _passwordController.text);
+                              signIn(_emailController.text,
+                                  _passwordController.text);
                             },
                             child: Padding(
                               padding: EdgeInsets.all(
@@ -268,52 +272,49 @@ class _SignInState extends State<SignIn> {
       ),
     );
   }
-  //
-  // Future<void> signIn(String email, String password) async {
-  //   if (_formKey.currentState!.validate()) {
-  //     try {
-  //       await _auth
-  //           .signInWithEmailAndPassword(
-  //               email: _emailController.text.trim(),
-  //               password: _passwordController.text.trim())
-  //           .then((uid) => {
-  //                 setState(() {
-  //                   _signInFetching = false;
-  //                 }),
-  //                 Fluttertoast.showToast(msg: 'Sign In Successful'),
-  //                 Navigator.popAndPushNamed(context, TabsScreen.routeName),
-  //               });
-  //     } on FirebaseAuthException catch (error) {
-  //       switch (error.code) {
-  //         case "invalid-email":
-  //           errorMessage = "Your email address appears to be malformed.";
-  //           break;
-  //         case "wrong-password":
-  //           errorMessage = "Your password is wrong.";
-  //           break;
-  //         case "user-not-found":
-  //           errorMessage = "User with this email doesn't exist.";
-  //           break;
-  //         case "user-disabled":
-  //           errorMessage = "User with this email has been disabled.";
-  //           break;
-  //         case "too-many-requests":
-  //           errorMessage = "Too many requests";
-  //           break;
-  //         case "operation-not-allowed":
-  //           errorMessage = "Signing in with Email and Password is not enabled.";
-  //           break;
-  //         default:
-  //           errorMessage = "An undefined Error happened.";
-  //       }
-  //       Fluttertoast.showToast(msg: errorMessage!);
-  //       setState(() {
-  //         _signInFetching = false;
-  //       });
-  //     }
-  //   }
-  //   setState(() {
-  //     _signInFetching = false;
-  //   });
-  // }
+
+  Future<void> signIn(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await _auth
+            .signInWithEmailAndPassword(
+                email: _emailController.text.trim(),
+                password: _passwordController.text.trim())
+            .then((uid) => {
+                  setState(() {
+                    _signInFetching = false;
+                  }),
+                  Fluttertoast.showToast(msg: 'Sign In Successful'),
+                  Navigator.popAndPushNamed(context, HomePage.routeName),
+                });
+      } on FirebaseAuthException catch (error) {
+        switch (error.code) {
+          case "invalid-email":
+            errorMessage = "Your email address appears to be malformed.";
+            break;
+          case "wrong-password":
+            errorMessage = "Your password is wrong.";
+            break;
+          case "user-not-found":
+            errorMessage = "User with this email doesn't exist.";
+            break;
+          case "user-disabled":
+            errorMessage = "User with this email has been disabled.";
+            break;
+          case "too-many-requests":
+            errorMessage = "Too many requests";
+            break;
+          case "operation-not-allowed":
+            errorMessage = "Signing in with Email and Password is not enabled.";
+            break;
+          default:
+            errorMessage = "An undefined Error happened.";
+        }
+        Fluttertoast.showToast(msg: errorMessage!);
+      }
+    }
+    setState(() {
+      _signInFetching = false;
+    });
+  }
 }
