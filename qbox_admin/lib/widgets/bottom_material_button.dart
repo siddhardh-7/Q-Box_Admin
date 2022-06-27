@@ -45,7 +45,10 @@ class _BottomMaterialButtonState extends State<BottomMaterialButton> {
                             onPressed: () {
                               Navigator.of(context, rootNavigator: true).pop();
                             },
-                            icon: const Icon(Icons.close_rounded))
+                            icon: const Icon(
+                              Icons.close_rounded,
+                              color: Colors.black87,
+                            ))
                       ],
                     ),
                     contentPadding: EdgeInsets.all(
