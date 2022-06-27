@@ -233,63 +233,40 @@ class _LevelUpManagementState extends State<LevelUpManagement> {
                       label: 'Paper Set',
                       widthRatio: 1,
                     ),
+                    Divider(
+                      color: Colors.amber,
+                    ),
+                    PopUpTextField(
+                      hint: 'API means',
+                      label: 'Question',
+                      widthRatio: 2,
+                    ),
+                    PopUpTextField(
+                      hint: '',
+                      label: 'Option 1',
+                      widthRatio: 1,
+                    ),
+                    PopUpTextField(
+                      hint: '',
+                      label: 'Option 2',
+                      widthRatio: 1,
+                    ),
+                    PopUpTextField(
+                      hint: '',
+                      label: 'Option 3',
+                      widthRatio: 1,
+                    ),
+                    PopUpTextField(
+                      hint: '',
+                      label: 'Option 4',
+                      widthRatio: 1,
+                    ),
                   ],
                 ),
                 popUpactions: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      BottomMaterialButton(
-                        text: 'Next',
-                        popUpactions: [
-                          SubmitButton(
-                              text: 'Add Question',
-                              onPressed: () {
-                                setState(() {
-                                  questionCount++;
-                                });
-                              }),
-                          SubmitButton(text: 'Preview', onPressed: () {})
-                        ],
-                        popUpChild: ListView.builder(
-                            itemCount: questionCount,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Wrap(
-                                children: const [
-                                  Divider(
-                                    color: Colors.amber,
-                                  ),
-                                  PopUpTextField(
-                                    hint: 'API means',
-                                    label: 'Question',
-                                    widthRatio: 2,
-                                  ),
-                                  PopUpTextField(
-                                    hint: '',
-                                    label: 'Option 1',
-                                    widthRatio: 1,
-                                  ),
-                                  PopUpTextField(
-                                    hint: '',
-                                    label: 'Option 2',
-                                    widthRatio: 1,
-                                  ),
-                                  PopUpTextField(
-                                    hint: '',
-                                    label: 'Option 3',
-                                    widthRatio: 1,
-                                  ),
-                                  PopUpTextField(
-                                    hint: '',
-                                    label: 'Option 4',
-                                    widthRatio: 1,
-                                  ),
-                                ],
-                              );
-                            }),
-                      ),
-                    ],
-                  ),
+                  SubmitButton(text: 'Preview', onPressed: () {}),
+                  SubmitButton(text: 'Add Question', onPressed: () {}),
+                  SubmitButton(text: 'Submit', onPressed: () {}),
                 ],
               ),
             ),
