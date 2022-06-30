@@ -13,7 +13,6 @@ class LevelUpManagement extends StatefulWidget {
 
 class _LevelUpManagementState extends State<LevelUpManagement> {
   bool _customTileExpanded = false;
-  final _formKey = GlobalKey<FormState>();
   int questionCount = 1;
 
   @override
@@ -52,7 +51,6 @@ class _LevelUpManagementState extends State<LevelUpManagement> {
                         backgroundColor: Colors.white,
                         title: const Text('Engineering Course'),
                         trailing: CourseManagementExpansionTailWidget(
-                            formKey: _formKey,
                             customTileExpanded: _customTileExpanded),
                         onExpansionChanged: (bool expanded) {
                           setState(() => _customTileExpanded = expanded);
@@ -99,7 +97,6 @@ class _LevelUpManagementState extends State<LevelUpManagement> {
                         backgroundColor: Colors.white,
                         title: const Text('Web Development Course'),
                         trailing: CourseManagementExpansionTailWidget(
-                            formKey: _formKey,
                             customTileExpanded: _customTileExpanded),
                         onExpansionChanged: (bool expanded) {
                           setState(() => _customTileExpanded = expanded);
@@ -146,7 +143,6 @@ class _LevelUpManagementState extends State<LevelUpManagement> {
                         backgroundColor: Colors.white,
                         title: const Text('Backend Development Course'),
                         trailing: CourseManagementExpansionTailWidget(
-                            formKey: _formKey,
                             customTileExpanded: _customTileExpanded),
                         onExpansionChanged: (bool expanded) {
                           setState(() => _customTileExpanded = expanded);

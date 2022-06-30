@@ -1,19 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:qbox_admin/utilities/dimensions.dart';
 import 'package:qbox_admin/widgets/pop_up_text_field.dart';
 import 'package:qbox_admin/widgets/submit_button.dart';
 
-class BatchManagementExpansionTailWidget extends StatelessWidget {
+class BatchManagementExpansionTailWidget extends StatefulWidget {
   const BatchManagementExpansionTailWidget({
     Key? key,
-    required GlobalKey<FormState> formKey,
     required bool customTileExpanded,
-  })  : _formKey = formKey,
-        _customTileExpanded = customTileExpanded,
+  })  : _customTileExpanded = customTileExpanded,
         super(key: key);
 
-  final GlobalKey<FormState> _formKey;
   final bool _customTileExpanded;
 
+  @override
+  State<BatchManagementExpansionTailWidget> createState() =>
+      _BatchManagementExpansionTailWidgetState();
+}
+
+class _BatchManagementExpansionTailWidgetState
+    extends State<BatchManagementExpansionTailWidget> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  List<String> teachersList = [];
+  String teacherDropDownValue = 'Teacher 1';
+
+  var teacherItems = [
+    'Teacher 1',
+    'Teacher 2',
+    'Teacher 3',
+    'Teacher 4',
+    'Teacher 5'
+  ];
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -24,65 +40,131 @@ class BatchManagementExpansionTailWidget extends StatelessWidget {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return SingleChildScrollView(
-                    child: AlertDialog(
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text('Add New Course Category'),
-                          IconButton(
-                              onPressed: () {
-                                Navigator.of(context, rootNavigator: true)
-                                    .pop();
-                              },
-                              icon: const Icon(Icons.close_rounded))
-                        ],
-                      ),
-                      contentPadding: EdgeInsets.all(
-                          MediaQuery.of(context).size.width * (2 / 153.6)),
-                      content: Form(
-                        key: _formKey,
-                        child: SizedBox(
+                  return Center(
+                    child: SingleChildScrollView(
+                      child: AlertDialog(
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Add New Course Category'),
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
+                                },
+                                icon: const Icon(Icons.close_rounded))
+                          ],
+                        ),
+                        contentPadding: EdgeInsets.all(
+                            MediaQuery.of(context).size.width * (2 / 153.6)),
+                        content: SizedBox(
                           width:
                               MediaQuery.of(context).size.width * (700 / 1563),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: const [
-                              Divider(
-                                color: Colors.amber,
-                              ),
-                              PopUpTextField(
-                                  hint: 'Course Name',
-                                  label: 'Course Name',
-                                  widthRatio: 2),
-                              PopUpTextField(
-                                  hint: 'Category',
-                                  label: 'Course Category',
-                                  widthRatio: 2),
-                              PopUpTextField(
+                          child: Form(
+                            key: formKey,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Divider(
+                                  color: Colors.amber,
+                                ),
+                                const PopUpTextField(
                                   hint: 'Batch S',
                                   label: 'Batch Name',
-                                  widthRatio: 2),
-                              PopUpTextField(
-                                  hint: '',
-                                  label: 'Starting Date',
-                                  widthRatio: 2),
-                              PopUpTextField(
-                                  hint: '',
-                                  label: 'Ending Date',
-                                  widthRatio: 2),
-                              PopUpTextField(
-                                  hint: '60',
-                                  label: 'Batch Strength',
-                                  widthRatio: 2),
-                            ],
+                                  widthRatio: 2,
+                                ),
+                                Container(
+                                  margin: EdgeInsets.all(
+                                      MediaQuery.of(context).size.width *
+                                          (1 / 153.6)),
+                                  width: double.maxFinite,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          MediaQuery.of(context).size.width *
+                                              (1 / 153.6),
+                                      vertical:
+                                          MediaQuery.of(context).size.height *
+                                              (5 / 792)),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: Colors.grey.withOpacity(0.15),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Teachers  :',
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              (18 / 1536),
+                                        ),
+                                      ),
+                                      DropdownButtonFormField(
+                                        elevation: 0,
+                                        dropdownColor: Colors.white,
+                                        focusColor: Colors.white,
+                                        value: teacherDropDownValue,
+                                        items: teacherItems.map((String items) {
+                                          return DropdownMenuItem(
+                                            value: items,
+                                            child: Text(items),
+                                          );
+                                        }).toList(),
+                                        onSaved: (String? newValue) {
+                                          setState(() {
+                                            teacherDropDownValue = newValue!;
+                                          });
+                                        },
+                                        onChanged: (String? newValue) {
+                                          setState(() {
+                                            teacherDropDownValue = newValue!;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Wrap(
+                                  children: [
+                                    for (String teacher in teachersList)
+                                      Container(
+                                        width: 120,
+                                        padding: EdgeInsets.only(
+                                            left: Dimensions.padding20 / 10),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          color: Colors.amberAccent,
+                                          border:
+                                              Border.all(color: Colors.black87),
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Text(teacher),
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                Icons.close_rounded,
+                                                color: Colors.black87,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
+                        actions: [
+                          SubmitButton(text: 'Add Batch', onPressed: () {}),
+                        ],
                       ),
-                      actions: [
-                        SubmitButton(text: 'Add Batch', onPressed: () {}),
-                      ],
                     ),
                   );
                 });
@@ -93,7 +175,7 @@ class BatchManagementExpansionTailWidget extends StatelessWidget {
           width: MediaQuery.of(context).size.width * (1 / 153.6),
         ),
         Icon(
-          _customTileExpanded
+          widget._customTileExpanded
               ? Icons.keyboard_arrow_up_outlined
               : Icons.keyboard_arrow_down_outlined,
         ),

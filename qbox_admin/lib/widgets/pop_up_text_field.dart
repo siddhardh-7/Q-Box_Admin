@@ -4,11 +4,13 @@ class PopUpTextField extends StatelessWidget {
   final String hint;
   final String label;
   final int widthRatio;
+  final TextEditingController? controller;
   const PopUpTextField(
       {Key? key,
       required this.hint,
       required this.label,
-      required this.widthRatio})
+      required this.widthRatio,
+      this.controller})
       : super(key: key);
 
   @override
@@ -17,6 +19,7 @@ class PopUpTextField extends StatelessWidget {
       width: MediaQuery.of(context).size.width * (350 / 1563) * widthRatio,
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        controller: controller,
         decoration: InputDecoration(
           hintText: hint,
           label: Text(label),

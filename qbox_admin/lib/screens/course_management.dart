@@ -13,7 +13,6 @@ class CourseManagement extends StatefulWidget {
 
 class _CourseManagementState extends State<CourseManagement> {
   bool _customTileExpanded = false;
-  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +50,6 @@ class _CourseManagementState extends State<CourseManagement> {
                         backgroundColor: Colors.white,
                         title: const Text('Engineering Course'),
                         trailing: CourseManagementExpansionTailWidget(
-                            formKey: _formKey,
                             customTileExpanded: _customTileExpanded),
                         onExpansionChanged: (bool expanded) {
                           setState(() => _customTileExpanded = expanded);
@@ -98,7 +96,6 @@ class _CourseManagementState extends State<CourseManagement> {
                         backgroundColor: Colors.white,
                         title: const Text('Web Development Course'),
                         trailing: CourseManagementExpansionTailWidget(
-                            formKey: _formKey,
                             customTileExpanded: _customTileExpanded),
                         onExpansionChanged: (bool expanded) {
                           setState(() => _customTileExpanded = expanded);
@@ -145,7 +142,6 @@ class _CourseManagementState extends State<CourseManagement> {
                         backgroundColor: Colors.white,
                         title: const Text('Backend Development Course'),
                         trailing: CourseManagementExpansionTailWidget(
-                            formKey: _formKey,
                             customTileExpanded: _customTileExpanded),
                         onExpansionChanged: (bool expanded) {
                           setState(() => _customTileExpanded = expanded);
@@ -190,7 +186,7 @@ class _CourseManagementState extends State<CourseManagement> {
             Align(
               alignment: Alignment.bottomRight,
               child: BottomMaterialButton(
-                text: 'Add Course',
+                text: 'Add Category',
                 popUpChild: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -203,7 +199,7 @@ class _CourseManagementState extends State<CourseManagement> {
                   ],
                 ),
                 popUpactions: [
-                  SubmitButton(text: 'Add Course', onPressed: () {}),
+                  SubmitButton(text: 'Add Category', onPressed: () {}),
                 ],
               ),
             ),

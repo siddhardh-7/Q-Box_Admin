@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                               });
                             },
                             child: HomeTile(
-                              title: 'Course Management',
+                              title: 'Courses',
                               color: selectManagement ==
                                       Management.courseManagement
                                   ? Colors.amber
@@ -123,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                               });
                             },
                             child: HomeTile(
-                              title: 'Batch Management',
+                              title: 'Batches',
                               color:
                                   selectManagement == Management.batchManagement
                                       ? Colors.amber
@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                               });
                             },
                             child: HomeTile(
-                              title: 'Student Management',
+                              title: 'Students',
                               color: selectManagement ==
                                       Management.studentManagement
                                   ? Colors.amber
@@ -153,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                               });
                             },
                             child: HomeTile(
-                              title: 'Test Management',
+                              title: 'Tests',
                               color:
                                   selectManagement == Management.testManagement
                                       ? Colors.amber
@@ -168,7 +168,7 @@ class _HomePageState extends State<HomePage> {
                               });
                             },
                             child: HomeTile(
-                              title: 'Teacher Management',
+                              title: 'Teachers',
                               color: selectManagement ==
                                       Management.teacherManagement
                                   ? Colors.amber
@@ -183,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                               });
                             },
                             child: HomeTile(
-                              title: 'Coupon Management',
+                              title: 'Coupons',
                               color: selectManagement ==
                                       Management.couponManagement
                                   ? Colors.amber
@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                               });
                             },
                             child: HomeTile(
-                              title: 'Videos',
+                              title: 'Live Videos',
                               color:
                                   selectManagement == Management.videoManagement
                                       ? Colors.amber
@@ -246,7 +246,7 @@ class _HomePageState extends State<HomePage> {
                               });
                             },
                             child: HomeTile(
-                              title: 'Practice Question',
+                              title: 'Practice Questions',
                               color: selectManagement ==
                                       Management.practiceQuestionManagement
                                   ? Colors.amber
