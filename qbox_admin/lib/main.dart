@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           TargetPlatform.android: ZoomPageTransitionsBuilder(),
         }),
         primaryColor: const Color(0xFFFFC600),
-        primarySwatch: Colors.amber,
+        primarySwatch: Colors.red,
       ),
       routes: {
         SignIn.routeName: (_) => const SignIn(),
