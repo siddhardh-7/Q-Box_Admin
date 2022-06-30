@@ -103,7 +103,7 @@ class _BatchManagementExpansionTailWidgetState
                                               (18 / 1536),
                                         ),
                                       ),
-                                      DropdownButtonFormField(
+                                      DropdownButton(
                                         elevation: 0,
                                         dropdownColor: Colors.white,
                                         focusColor: Colors.white,
@@ -114,11 +114,6 @@ class _BatchManagementExpansionTailWidgetState
                                             child: Text(items),
                                           );
                                         }).toList(),
-                                        onSaved: (String? newValue) {
-                                          setState(() {
-                                            teacherDropDownValue = newValue!;
-                                          });
-                                        },
                                         onChanged: (String? newValue) {
                                           setState(() {
                                             teacherDropDownValue = newValue!;
