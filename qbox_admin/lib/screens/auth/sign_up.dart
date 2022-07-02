@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:qbox_admin/models/user_model.dart';
+import 'package:qbox_admin/models/teacher_model.dart';
 import 'package:qbox_admin/screens/auth/sign_in.dart';
 import 'package:qbox_admin/screens/home_page.dart';
 import 'package:qbox_admin/utilities/dimensions.dart';
@@ -437,7 +437,7 @@ class _SignUpState extends State<SignUp> {
         await FirebaseFirestore.instance
             .collection('teachers')
             .doc(email)
-            .set(UserModel(
+            .set(TeacherModel(
                     firstName: _firstNameController.text.trim(),
                     lastName: _lastNameController.text.trim(),
                     phoneNumber: int.parse(_phoneNumberController.text.trim()),
