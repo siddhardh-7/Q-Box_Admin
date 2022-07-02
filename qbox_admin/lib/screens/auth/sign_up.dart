@@ -201,7 +201,7 @@ class _SignUpState extends State<SignUp> {
                                 borderRadius: BorderRadius.circular(
                                     Dimensions.borderRadius12),
                               ),
-                              hintText: "9876543210",
+                              hintText: "Phone Number",
                               fillColor: Colors.grey[100],
                               filled: true,
                             ),

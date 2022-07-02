@@ -160,27 +160,32 @@ class _HomePageState extends State<HomePage> {
                             horizontal:
                                 MediaQuery.of(context).size.width / 537.6,
                             vertical: MediaQuery.of(context).size.height / 198),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            CircleAvatar(
-                              radius: MediaQuery.of(context).size.width / 48,
-                              child: Icon(
-                                Icons.person,
-                                size: MediaQuery.of(context).size.width / 48,
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CircleAvatar(
+                                radius: MediaQuery.of(context).size.width / 48,
+                                child: Icon(
+                                  Icons.person,
+                                  size: MediaQuery.of(context).size.width / 48,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 153.6,
-                            ),
-                            Text(
-                              'Indrajit Sikdar',
-                              style: TextStyle(
-                                  fontSize: MediaQuery.of(context).size.width /
-                                      69.8181818,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                              SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.width / 153.6,
+                              ),
+                              Text(
+                                'Indrajit Sikdar',
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width /
+                                            69.8181818,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       FutureBuilder(
