@@ -342,7 +342,7 @@ class _SignUpState extends State<SignUp> {
                             setState(() {
                               _signUpFetching = true;
                             });
-                            //signUp();
+                            signUp();
                           },
                           child: Padding(
                             padding: EdgeInsets.all(padding20 / 2),
@@ -425,7 +425,8 @@ class _SignUpState extends State<SignUp> {
       try {
         await _auth
             .createUserWithEmailAndPassword(
-                email: email, password: _passwordController.text.trim())
+                email: _emailController.text.trim(),
+                password: _passwordController.text.trim())
             .then((uid) => {
                   setState(() {
                     _signUpFetching = false;
@@ -434,13 +435,14 @@ class _SignUpState extends State<SignUp> {
                   Navigator.popAndPushNamed(context, HomePage.routeName),
                 });
         await FirebaseFirestore.instance
-            .collection('users')
+            .collection('teachers')
             .doc(email)
             .set(UserModel(
                     firstName: _firstNameController.text.trim(),
                     lastName: _lastNameController.text.trim(),
                     age: int.parse(_ageController.text.trim()),
-                    email: _emailController.text.trim())
+                    email: _emailController.text.trim(),
+                    role: "teacher")
                 .toJson())
             .then((value) => print("User Added"))
             .catchError((error) => print("Failed to add user: $error"));

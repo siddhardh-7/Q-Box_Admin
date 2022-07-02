@@ -4,13 +4,15 @@ class UserModel {
   int? age;
   String? email;
   String? profileImageName;
+  String? role;
 
   UserModel(
       {this.firstName,
       this.lastName,
       this.age,
       this.email,
-      this.profileImageName});
+      this.profileImageName,
+      this.role});
 
   // UserModel fromJson(Map<String, dynamic> json) {
   //   return UserModel(
@@ -27,7 +29,8 @@ class UserModel {
             lastName: json['lastName']! as String,
             email: json['email']! as String,
             profileImageName: json['profileImageName'] as String,
-            age: json['age']! as int);
+            age: json['age']! as int,
+            role: json['role'] as String);
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -36,6 +39,7 @@ class UserModel {
     data['age'] = age;
     data['email'] = email;
     data['profileImageName'] = profileImageName;
+    data['role'] = role;
     return data;
   }
 }

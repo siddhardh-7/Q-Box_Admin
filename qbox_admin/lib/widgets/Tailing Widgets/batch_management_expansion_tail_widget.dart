@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:qbox_admin/utilities/dimensions.dart';
 import 'package:qbox_admin/widgets/pop_up_text_field.dart';
