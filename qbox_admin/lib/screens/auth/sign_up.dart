@@ -26,7 +26,7 @@ class _SignUpState extends State<SignUp> {
   final _confirmedPasswordController = TextEditingController();
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
-  final _ageController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
   double? titleSize;
   double? padding;
 
@@ -39,7 +39,7 @@ class _SignUpState extends State<SignUp> {
     _confirmedPasswordController.dispose();
     _firstNameController.dispose();
     _lastNameController.dispose();
-    _ageController.dispose();
+    _phoneNumberController.dispose();
   }
 
   @override
@@ -174,14 +174,14 @@ class _SignUpState extends State<SignUp> {
                         Padding(
                           padding: EdgeInsets.all(padding20 / 2),
                           child: TextFormField(
-                            controller: _ageController,
+                            controller: _phoneNumberController,
                             keyboardType: TextInputType.number,
                             onSaved: (value) {
-                              _ageController.text = value!;
+                              _phoneNumberController.text = value!;
                             },
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return ("Please Enter Your Age");
+                                return ("Please Enter Your Phone Number");
                               }
                               return null;
                             },
@@ -201,7 +201,7 @@ class _SignUpState extends State<SignUp> {
                                 borderRadius: BorderRadius.circular(
                                     Dimensions.borderRadius12),
                               ),
-                              hintText: "Age",
+                              hintText: "9876543210",
                               fillColor: Colors.grey[100],
                               filled: true,
                             ),
@@ -440,7 +440,7 @@ class _SignUpState extends State<SignUp> {
             .set(UserModel(
                     firstName: _firstNameController.text.trim(),
                     lastName: _lastNameController.text.trim(),
-                    age: int.parse(_ageController.text.trim()),
+                    phoneNumber: int.parse(_phoneNumberController.text.trim()),
                     email: _emailController.text.trim(),
                     role: "teacher")
                 .toJson())
