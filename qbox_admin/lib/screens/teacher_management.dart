@@ -163,25 +163,6 @@ class _TeacherManagementState extends State<TeacherManagement> {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Material(
-                color: Colors.amberAccent,
-                elevation: 4,
-                type: MaterialType.button,
-                child: MaterialButton(
-                  onPressed: () {},
-                  padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.width / 76.8),
-                  child: Text(
-                    'Add New Course',
-                    style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width / 86,
-                    ),
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       ),

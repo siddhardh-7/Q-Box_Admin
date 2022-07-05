@@ -20,6 +20,10 @@ class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
   final _auth = FirebaseAuth.instance;
   String? errorMessage;
+  double? titleSize;
+  double? padding;
+  String roleDropDownValue = 'Teacher';
+  var roleItems = ['Teacher', 'Admin', 'Super Admin'];
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -27,12 +31,10 @@ class _SignUpState extends State<SignUp> {
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
-  double? titleSize;
-  double? padding;
+  final _roleController = TextEditingController();
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -40,6 +42,7 @@ class _SignUpState extends State<SignUp> {
     _firstNameController.dispose();
     _lastNameController.dispose();
     _phoneNumberController.dispose();
+    _roleController.dispose();
   }
 
   @override
@@ -207,6 +210,53 @@ class _SignUpState extends State<SignUp> {
                             ),
                           ),
                         ),
+                        Padding(
+                          padding: EdgeInsets.all(padding20 / 2),
+                          child: DropdownButtonFormField(
+                            items: roleItems
+                                .map((String item) => DropdownMenuItem(
+                                      value: item,
+                                      child: Text(item),
+                                    ))
+                                .toList(),
+                            onSaved: (String? value) {
+                              setState(() {
+                                _roleController.text = value!;
+                              });
+                            },
+                            onChanged: (String? value) {
+                              setState(() {
+                                _roleController.text = value!;
+                              });
+                            },
+                            validator: (value) {
+                              if (value! == Null) {
+                                return ("Please select the role");
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: Colors.white,
+                                ),
+                                borderRadius: BorderRadius.circular(
+                                    Dimensions.borderRadius12),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                borderRadius: BorderRadius.circular(
+                                    Dimensions.borderRadius12),
+                              ),
+                              hintText: "Role",
+                              fillColor: Colors.grey[100],
+                              filled: true,
+                            ),
+                          ),
+                        ),
+                        //Todo add text field to enter the security code which is send by the academics to become as teacher
                         Padding(
                           padding: EdgeInsets.all(padding20 / 2),
                           child: TextFormField(
@@ -425,8 +475,7 @@ class _SignUpState extends State<SignUp> {
       try {
         await _auth
             .createUserWithEmailAndPassword(
-                email: _emailController.text.trim(),
-                password: _passwordController.text.trim())
+                email: email, password: _passwordController.text.trim())
             .then((uid) => {
                   setState(() {
                     _signUpFetching = false;
@@ -438,12 +487,12 @@ class _SignUpState extends State<SignUp> {
             .collection('teachers')
             .doc(email)
             .set(TeacherModel(
-                    firstName: _firstNameController.text.trim(),
-                    lastName: _lastNameController.text.trim(),
-                    phoneNumber: int.parse(_phoneNumberController.text.trim()),
-                    email: _emailController.text.trim(),
-                    role: "teacher")
-                .toJson())
+              firstName: _firstNameController.text.trim(),
+              lastName: _lastNameController.text.trim(),
+              phoneNumber: int.parse(_phoneNumberController.text.trim()),
+              email: email,
+              role: _roleController.text.trim(),
+            ).toJson())
             .then((value) => print("User Added"))
             .catchError((error) => print("Failed to add user: $error"));
       } on FirebaseAuthException catch (error) {

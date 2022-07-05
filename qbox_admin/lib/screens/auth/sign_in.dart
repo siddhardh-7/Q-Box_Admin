@@ -25,7 +25,6 @@ class _SignInState extends State<SignIn> {
   double? smallTextSize = 15;
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();

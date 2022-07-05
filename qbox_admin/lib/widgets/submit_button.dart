@@ -18,7 +18,7 @@ class _SubmitButtonState extends State<SubmitButton> {
       elevation: 4,
       type: MaterialType.button,
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: widget.onPressed(),
         padding: EdgeInsets.all(MediaQuery.of(context).size.width / 76.8),
         child: Text(
           widget.text,

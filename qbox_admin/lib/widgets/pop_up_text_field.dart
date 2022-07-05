@@ -5,12 +5,14 @@ class PopUpTextField extends StatelessWidget {
   final String label;
   final int widthRatio;
   final TextEditingController? controller;
+  final validator;
   const PopUpTextField(
       {Key? key,
       required this.hint,
       required this.label,
       required this.widthRatio,
-      this.controller})
+      this.controller,
+      this.validator})
       : super(key: key);
 
   @override
@@ -20,6 +22,7 @@ class PopUpTextField extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         controller: controller,
+        validator: validator,
         decoration: InputDecoration(
           hintText: hint,
           label: Text(label),

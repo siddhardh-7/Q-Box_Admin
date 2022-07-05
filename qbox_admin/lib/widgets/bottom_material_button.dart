@@ -35,29 +35,36 @@ class _BottomMaterialButtonState extends State<BottomMaterialButton> {
           showDialog(
               context: context,
               builder: (BuildContext context) {
-                return SingleChildScrollView(
-                  child: AlertDialog(
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(widget.text),
-                        IconButton(
-                            onPressed: () {
-                              Navigator.of(context, rootNavigator: true).pop();
-                            },
-                            icon: const Icon(
-                              Icons.close_rounded,
-                              color: Colors.black87,
-                            ))
-                      ],
-                    ),
-                    contentPadding: EdgeInsets.all(
-                        MediaQuery.of(context).size.width * (2 / 153.6)),
-                    content: SizedBox(
-                      width: MediaQuery.of(context).size.width * (700 / 1563),
-                      child: widget.popUpChild,
-                    ),
-                    actions: widget.popUpactions,
+                return Center(
+                  child: SingleChildScrollView(
+                    child: StatefulBuilder(
+                        builder: (BuildContext context, StateSetter setState) {
+                      return AlertDialog(
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(widget.text),
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
+                                },
+                                icon: const Icon(
+                                  Icons.close_rounded,
+                                  color: Colors.black87,
+                                ))
+                          ],
+                        ),
+                        contentPadding: EdgeInsets.all(
+                            MediaQuery.of(context).size.width * (2 / 153.6)),
+                        content: SizedBox(
+                          width:
+                              MediaQuery.of(context).size.width * (700 / 1563),
+                          child: widget.popUpChild,
+                        ),
+                        actions: widget.popUpactions,
+                      );
+                    }),
                   ),
                 );
               });

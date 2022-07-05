@@ -49,7 +49,6 @@ class _HomePageState extends State<HomePage> {
     final snapshot = await docData.get();
     if (snapshot.exists) {
       var data = snapshot.data() as Map<String, dynamic>;
-      // UserModel UserCurr = UserModel.fromJson(snapshot.data()!);
       return data['role'] as String;
     }
     return '';
@@ -57,21 +56,21 @@ class _HomePageState extends State<HomePage> {
 
   Future<List> getHomeList() async {
     String role = await getUserRole();
-    if (role == 'teacher') {
+    if (role == 'Teacher') {
       displayList = <Widget>[] + teachersList;
       sideDisplayList = <String>[] + sideTeachersList;
       sideManagementList = [] + sideTeachersManagementList;
       return [teachersList, sideTeachersList, sideTeachersManagementList];
-    } else if (role == 'admin') {
+    } else if (role == 'Admin') {
       displayList = <Widget>[] + adminList;
       sideDisplayList = <String>[] + sideAdminList;
       sideManagementList = [] + sideAdminManagementList;
       return [adminList, sideAdminList, sideAdminManagementList];
-    } else if (role == 'superAdmin') {
-      displayList = <Widget>[] + teachersList + adminList;
-      sideDisplayList = <String>[] + sideTeachersList + sideAdminList;
+    } else if (role == 'Super Admin') {
+      displayList = <Widget>[] + adminList + teachersList;
+      sideDisplayList = <String>[] + sideAdminList + sideTeachersList;
       sideManagementList =
-          [] + sideTeachersManagementList + sideAdminManagementList;
+          [] + sideAdminManagementList + sideTeachersManagementList;
       return [displayList, sideDisplayList, sideManagementList];
     }
     return [];
@@ -79,7 +78,6 @@ class _HomePageState extends State<HomePage> {
 
   // Left Panel Display Name
   List<String> sideTeachersList = [
-    'Test',
     'Live Videos',
     'Free Videos',
     'Level Up Tests',
@@ -96,7 +94,6 @@ class _HomePageState extends State<HomePage> {
   ];
   // Left Panel Management List
   List sideTeachersManagementList = [
-    Management.testManagement,
     Management.videoManagement,
     Management.freeVideosManagement,
     Management.levelUpSeriesManagement,
@@ -114,7 +111,6 @@ class _HomePageState extends State<HomePage> {
 
   // Right Panel Display List
   List<Widget> teachersList = [
-    const TestManagement(),
     const VideoManagement(),
     const FreeVideoManagement(),
     const LevelUpManagement(),
@@ -132,7 +128,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getUserRole();
   }
