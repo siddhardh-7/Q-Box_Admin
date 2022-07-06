@@ -6,7 +6,6 @@ import 'package:qbox_admin/models/batch_model.dart';
 import 'package:qbox_admin/models/category_model.dart';
 import 'package:qbox_admin/utilities/dimensions.dart';
 import 'package:qbox_admin/widgets/pop_up_text_field.dart';
-import 'package:qbox_admin/widgets/submit_button.dart';
 
 class BatchManagement extends StatefulWidget {
   const BatchManagement({Key? key}) : super(key: key);
@@ -17,8 +16,8 @@ class BatchManagement extends StatefulWidget {
 
 class _BatchManagementState extends State<BatchManagement> {
   String? errorMessage;
-  List<Courses> courseModelsList = [];
   Set<String> teachersList = {};
+  List categoryModelsList = [];
   String teacherDropDownValue = 'Teacher 1';
   final _batchController = TextEditingController();
   final GlobalKey<FormState> _batchFormKey = GlobalKey<FormState>();
@@ -74,12 +73,9 @@ class _BatchManagementState extends State<BatchManagement> {
                             .map((DocumentSnapshot document) {
                           Map<String, dynamic> data =
                               document.data()! as Map<String, dynamic>;
-                          var courses = data['courses'];
-                          print(courses);
-                          courses.forEach((key, value) {
-                            Courses course = Courses.fromJson(value);
-                            courseModelsList.add(course);
-                          });
+                          CategoryModel model = CategoryModel.fromJson(data);
+                          categoryModelsList.add(model);
+                          List<Courses>? courses = model.courses;
                           return ExpansionTile(
                             backgroundColor: Colors.white,
                             title: ListTile(
@@ -100,7 +96,7 @@ class _BatchManagementState extends State<BatchManagement> {
                                   color: Colors.amber,
                                 ),
                               ),
-                              for (Courses course in courseModelsList)
+                              for (Courses course in courses!)
                                 ExpansionTile(
                                   title: ListTile(
                                     title: Text(course.courseName!),
@@ -123,7 +119,7 @@ class _BatchManagementState extends State<BatchManagement> {
                                                                 .spaceBetween,
                                                         children: [
                                                           const Text(
-                                                              'Add New Course Category'),
+                                                              'Add Batch'),
                                                           IconButton(
                                                               onPressed: () {
                                                                 Navigator.of(
@@ -325,77 +321,38 @@ class _BatchManagementState extends State<BatchManagement> {
                                                               if (_batchFormKey
                                                                   .currentState!
                                                                   .validate()) {
-                                                                final title =
-                                                                    document.id;
                                                                 try {
-                                                                  final documentReference = FirebaseFirestore
-                                                                      .instance
-                                                                      .collection(
-                                                                          'category')
-                                                                      .doc(
-                                                                          title);
-                                                                  final documentPayments = course
-                                                                      .payment!
-                                                                      .toJson();
-                                                                  final documentBatches =
-                                                                      course
-                                                                          .batches;
-                                                                  await documentReference
-                                                                      .update({
-                                                                        "courses":
-                                                                            FieldValue.arrayRemove([
-                                                                          {
-                                                                            "courseName":
-                                                                                course.courseName!,
-                                                                            "payments":
-                                                                                documentPayments,
-                                                                            "batches":
-                                                                                documentBatches!
-                                                                          }
-                                                                        ])
-                                                                      })
-                                                                      .then((value) =>
-                                                                          print(
-                                                                              'course Removed ${course.courseName} , ${documentPayments} , ${documentBatches}'))
-                                                                      .catchError(
-                                                                          (error) =>
-                                                                              print("Failed to add batch: $error"));
-                                                                  await documentReference.update({
-                                                                    "courses":
-                                                                        FieldValue
-                                                                            .arrayUnion([
-                                                                      {
-                                                                        "courseName":
-                                                                            course.courseName!,
-                                                                        "payments":
-                                                                            documentPayments,
-                                                                        "batches":
-                                                                            documentBatches +
-                                                                                [
-                                                                                  _batchController.text.trim()
-                                                                                ]
-                                                                      }
-                                                                    ])
-                                                                  }).catchError(
-                                                                      (error) =>
-                                                                          print(
-                                                                              "Failed to add batch: $error"));
+                                                                  final title =
+                                                                      document
+                                                                          .id;
+                                                                  List<String>
+                                                                      documentBatches =
+                                                                      <String>[] +
+                                                                          course
+                                                                              .batches!;
                                                                   await FirebaseFirestore
                                                                       .instance
                                                                       .collection(
-                                                                          'batches')
-                                                                      .doc(_batchController
-                                                                          .text
-                                                                          .trim())
-                                                                      .update(BatchModel(
-                                                                              batchName: _batchController.text
-                                                                                  .trim(),
-                                                                              teachers: teachersList
-                                                                                  .toList())
-                                                                          .toJson())
+                                                                          'cat')
+                                                                      .doc(
+                                                                          title)
+                                                                      .update({
+                                                                        "courses.${course.courseName!.toLowerCase()}":
+                                                                            {
+                                                                          "courseName":
+                                                                              course.courseName,
+                                                                          "batches": documentBatches +
+                                                                              [
+                                                                                _batchController.text.trim()
+                                                                              ]
+                                                                        }
+                                                                      })
+                                                                      .then((value) =>
+                                                                          print(
+                                                                              "Batch Added"))
                                                                       .catchError(
                                                                           (error) =>
-                                                                              print("Failed to add category: $error"));
+                                                                              print("Failed to add batch: $error"));
                                                                 } on FirebaseAuthException catch (error) {
                                                                   switch (error
                                                                       .code) {
@@ -411,9 +368,68 @@ class _BatchManagementState extends State<BatchManagement> {
                                                                 Fluttertoast
                                                                     .showToast(
                                                                         msg:
-                                                                            "Category Added Successfully");
-                                                                if (!mounted)
+                                                                            "Batch Added Successfully");
+                                                                try {
+                                                                  String title =
+                                                                      _batchController
+                                                                          .text
+                                                                          .trim();
+                                                                  print(title);
+                                                                  print(_batchController
+                                                                      .text
+                                                                      .trim());
+                                                                  print(teachersList
+                                                                      .toList());
+                                                                  print(BatchModel(
+                                                                          batchName: _batchController
+                                                                              .text
+                                                                              .trim(),
+                                                                          teachers:
+                                                                              teachersList.toList())
+                                                                      .toJson());
+                                                                  await FirebaseFirestore
+                                                                      .instance
+                                                                      .collection(
+                                                                          'batches')
+                                                                      .doc(
+                                                                          title)
+                                                                      .set(BatchModel(
+                                                                              batchName: _batchController.text
+                                                                                  .trim(),
+                                                                              teachers: teachersList
+                                                                                  .toList())
+                                                                          .toJson())
+                                                                      .then((value) =>
+                                                                          print(
+                                                                              "Batch Added"))
+                                                                      .catchError(
+                                                                          (error) {
+                                                                    print(
+                                                                        "Failed to add Batch: $error");
+                                                                    return Fluttertoast
+                                                                        .showToast(
+                                                                            msg:
+                                                                                error!);
+                                                                  });
+                                                                } on FirebaseAuthException catch (error) {
+                                                                  switch (error
+                                                                      .code) {
+                                                                    default:
+                                                                      errorMessage =
+                                                                          "An undefined Error happened.+$error";
+                                                                  }
+                                                                  Fluttertoast
+                                                                      .showToast(
+                                                                          msg:
+                                                                              errorMessage!);
+                                                                }
+                                                                Fluttertoast
+                                                                    .showToast(
+                                                                        msg:
+                                                                            "Batch Added Successfully in batches");
+                                                                if (!mounted) {
                                                                   return;
+                                                                }
                                                                 Navigator.of(
                                                                         context,
                                                                         rootNavigator:

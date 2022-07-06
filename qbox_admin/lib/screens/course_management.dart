@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:qbox_admin/models/batch_model.dart';
 import 'package:qbox_admin/models/category_model.dart';
 import 'package:qbox_admin/widgets/bottom_material_button.dart';
 import 'package:qbox_admin/widgets/pop_up_text_field.dart';
@@ -231,6 +230,8 @@ class _CourseManagementState extends State<CourseManagement> {
                                                                         _courseController
                                                                             .text
                                                                             .trim(),
+                                                                    "batches":
+                                                                        [],
                                                                     "payment": {
                                                                       "1month": _oneMonthFeeController
                                                                           .text
@@ -368,7 +369,7 @@ class _CourseManagementState extends State<CourseManagement> {
                               await FirebaseFirestore.instance
                                   .collection('cat')
                                   .doc(title)
-                                  .set(CategoryModel(title: title).toJson())
+                                  .set({"title": title, "courses": {}})
                                   .then((value) => print("Category Added"))
                                   .catchError((error) =>
                                       print("Failed to add category: $error"));
