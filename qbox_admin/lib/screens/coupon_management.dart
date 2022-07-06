@@ -20,7 +20,7 @@ class _CouponManagementState extends State<CouponManagement> {
         child: Column(
           children: [
             Text(
-              'Tests',
+              'Coupons',
               style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width / 32,
               ),
@@ -32,7 +32,6 @@ class _CouponManagementState extends State<CouponManagement> {
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
-                //color: Colors.amberAccent,
                 margin: EdgeInsets.only(
                   bottom: MediaQuery.of(context).size.width * (1 / 153.6),
                 ),
