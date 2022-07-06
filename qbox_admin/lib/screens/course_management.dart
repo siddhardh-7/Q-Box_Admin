@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:qbox_admin/models/batch_model.dart';
 import 'package:qbox_admin/models/category_model.dart';
 import 'package:qbox_admin/widgets/bottom_material_button.dart';
 import 'package:qbox_admin/widgets/pop_up_text_field.dart';
@@ -52,7 +53,7 @@ class _CourseManagementState extends State<CourseManagement> {
                 ),
                 child: StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
-                        .collection('category')
+                        .collection('cat')
                         .snapshots(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -221,33 +222,30 @@ class _CourseManagementState extends State<CourseManagement> {
                                                             await FirebaseFirestore
                                                                 .instance
                                                                 .collection(
-                                                                    'category')
+                                                                    'cat')
                                                                 .doc(title)
                                                                 .update({
-                                                                  "courses":
-                                                                      FieldValue
-                                                                          .arrayUnion([
-                                                                    {
-                                                                      "courseName": _courseController
+                                                                  "courses.${_courseController.text.trim().toLowerCase()}":
+                                                                      {
+                                                                    "courseName":
+                                                                        _courseController
+                                                                            .text
+                                                                            .trim(),
+                                                                    "payment": {
+                                                                      "1month": _oneMonthFeeController
                                                                           .text
                                                                           .trim(),
-                                                                      "payment":
-                                                                          {
-                                                                        "1month": _oneMonthFeeController
-                                                                            .text
-                                                                            .trim(),
-                                                                        "6month": _oneMonthFeeController
-                                                                            .text
-                                                                            .trim(),
-                                                                        "12month": _oneMonthFeeController
-                                                                            .text
-                                                                            .trim(),
-                                                                        "24months": _oneMonthFeeController
-                                                                            .text
-                                                                            .trim(),
-                                                                      }
+                                                                      "6month": _oneMonthFeeController
+                                                                          .text
+                                                                          .trim(),
+                                                                      "12month": _oneMonthFeeController
+                                                                          .text
+                                                                          .trim(),
+                                                                      "24months": _oneMonthFeeController
+                                                                          .text
+                                                                          .trim(),
                                                                     }
-                                                                  ])
+                                                                  }
                                                                 })
                                                                 .then((value) =>
                                                                     print(
@@ -368,7 +366,7 @@ class _CourseManagementState extends State<CourseManagement> {
                                 _categoryController.text.trim().toLowerCase();
                             try {
                               await FirebaseFirestore.instance
-                                  .collection('category')
+                                  .collection('cat')
                                   .doc(title)
                                   .set(CategoryModel(title: title).toJson())
                                   .then((value) => print("Category Added"))

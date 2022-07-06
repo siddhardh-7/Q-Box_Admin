@@ -10,7 +10,7 @@ class CategoryModel {
     title = json['title'];
     if (json['courses'] != null) {
       courses = <Courses>[];
-      json['courses'].forEach((v) {
+      json['courses'].forEach((k, v) {
         courses!.add(Courses.fromJson(v));
       });
     }
@@ -42,15 +42,15 @@ class Courses {
       batches = null;
     }
     payment =
-        json['payment'] != null ? Payment.fromJson(json['payment']) : null;
+        json['payments'] != null ? Payment.fromJson(json['payments']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['courseName'] = courseName;
-    data['batches'] = FieldValue.arrayUnion([batches]);
+    data['batches'] = [batches];
     if (payment != null) {
-      data['payment'] = payment!.toJson();
+      data['payments'] = payment!.toJson();
     }
     return data;
   }
