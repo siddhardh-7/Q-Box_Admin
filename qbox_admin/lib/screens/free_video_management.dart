@@ -1,7 +1,15 @@
+import 'dart:typed_data';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:qbox_admin/models/free_videos_model.dart';
 import 'package:qbox_admin/widgets/bottom_material_button.dart';
+import 'package:qbox_admin/widgets/home_display_screen.dart';
 import 'package:qbox_admin/widgets/pop_up_text_field.dart';
-import 'package:qbox_admin/widgets/submit_button.dart';
 
 class FreeVideoManagement extends StatefulWidget {
   const FreeVideoManagement({Key? key}) : super(key: key);
@@ -11,6 +19,46 @@ class FreeVideoManagement extends StatefulWidget {
 }
 
 class _FreeVideoManagementState extends State<FreeVideoManagement> {
+  final _titleController = TextEditingController();
+  final _categoryController = TextEditingController();
+  final _courseController = TextEditingController();
+  final GlobalKey<FormState> _freeVideoFormKey = GlobalKey<FormState>();
+  final freeVideoRef = FirebaseStorage.instance.ref();
+  late String imageFileName;
+  late String videoFileName;
+  double progress = 0.0;
+  String? errorMessage;
+
+  Future uploadFile(String type) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      Uint8List? file = result.files.first.bytes;
+      String fileName = result.files.first.name;
+      UploadTask task = FirebaseStorage.instance
+          .ref()
+          .child("freeVideos/$type/$fileName")
+          .putData(file!);
+      task.snapshotEvents.listen((event) {
+        setState(() {
+          progress = ((event.bytesTransferred.toDouble() /
+                      event.totalBytes.toDouble()) *
+                  100)
+              .roundToDouble();
+          if (progress == 100) {
+            event.ref.getDownloadURL().then((downloadUrl) {
+              if (type == 'images') {
+                imageFileName = downloadUrl.toString();
+              } else if (type == 'videos') {
+                videoFileName = downloadUrl.toString();
+              }
+              return Fluttertoast.showToast(msg: "$type Added Successfully");
+            });
+          }
+        });
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,134 +78,47 @@ class _FreeVideoManagementState extends State<FreeVideoManagement> {
             ),
             Expanded(
               child: Container(
-                width: double.infinity,
                 height: double.infinity,
-                //color: Colors.amberAccent,
                 margin: EdgeInsets.only(
                   bottom: MediaQuery.of(context).size.width * (1 / 153.6),
                 ),
                 child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: SingleChildScrollView(
-                    child: DataTable(
-                      headingRowColor: MaterialStateColor.resolveWith(
-                        (states) {
-                          return Colors.amber;
-                        },
-                      ),
-                      columns: const [
-                        DataColumn(
-                          label: Text('Title'),
-                        ),
-                        DataColumn(
-                            label: Text(
-                          'Course Name',
-                        )),
-                        DataColumn(
-                            label: Text(
-                          'Category',
-                        )),
-                        DataColumn(
-                            label: Text(
-                          'Batch',
-                        )),
-                        DataColumn(
-                            label: Text(
-                          'Date',
-                        )),
-                        DataColumn(
-                            label: Text(
-                          'Time',
-                        )),
-                        DataColumn(
-                            label: Text(
-                          'Status',
-                        )),
-                        DataColumn(
-                            label: Text(
-                          'Upload Time',
-                        )),
-                        DataColumn(
-                            label: Text(
-                          'Description',
-                        )),
-                      ],
-                      rows: const [
-                        DataRow(cells: [
-                          DataCell(Text('HTML Syntax')),
-                          DataCell(Text('WEB DEVELOPMENT')),
-                          DataCell(Text('Paid')),
-                          DataCell(Text('Batch S')),
-                          DataCell(Text('xx-xx-20xx')),
-                          DataCell(Text('xx.xx')),
-                          DataCell(Material(
-                              type: MaterialType.canvas,
-                              color: Colors.green,
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text('Done'),
-                              ))),
-                          DataCell(Text('xx.xx')),
-                          DataCell(Text(
-                              '--------------------------------------------------------')),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('HTML Syntax')),
-                          DataCell(Text('WEB DEVELOPMENT')),
-                          DataCell(Text('Free')),
-                          DataCell(Text('Batch S')),
-                          DataCell(Text('xx-xx-20xx')),
-                          DataCell(Text('xx.xx')),
-                          DataCell(Material(
-                              type: MaterialType.canvas,
-                              color: Colors.red,
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text('Cancel'),
-                              ))),
-                          DataCell(Text('xx.xx')),
-                          DataCell(Text(
-                              '--------------------------------------------------------')),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('HTML Syntax')),
-                          DataCell(Text('WEB DEVELOPMENT')),
-                          DataCell(Text('Paid')),
-                          DataCell(Text('Batch S')),
-                          DataCell(Text('xx-xx-20xx')),
-                          DataCell(Text('xx.xx')),
-                          DataCell(Material(
-                              type: MaterialType.canvas,
-                              color: Colors.green,
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text('Done'),
-                              ))),
-                          DataCell(Text('xx.xx')),
-                          DataCell(Text(
-                              '--------------------------------------------------------')),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('HTML Syntax')),
-                          DataCell(Text('WEB DEVELOPMENT')),
-                          DataCell(Text('Free')),
-                          DataCell(Text('Batch S')),
-                          DataCell(Text('xx-xx-20xx')),
-                          DataCell(Text('xx.xx')),
-                          DataCell(Material(
-                              type: MaterialType.canvas,
-                              color: Colors.green,
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text('Done'),
-                              ))),
-                          DataCell(Text('xx.xx')),
-                          DataCell(Text(
-                              '--------------------------------------------------------')),
-                        ]),
-                      ],
-                    ),
-                  ),
+                  child: StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance
+                          .collection('videos')
+                          .where("uploadedTeacherEmail",
+                              isEqualTo: FirebaseAuth
+                                  .instance.currentUser!.email
+                                  .toString())
+                          .snapshots(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError) {
+                          return const Text('Something went wrong!');
+                        }
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                        return Wrap(
+                          spacing: 20,
+                          runSpacing: 15,
+                          alignment: WrapAlignment.center,
+                          crossAxisAlignment: WrapCrossAlignment.start,
+                          children: snapshot.data!.docs
+                              .map((DocumentSnapshot document) {
+                            Map<String, dynamic> data =
+                                document.data()! as Map<String, dynamic>;
+                            return HomeDisplayScreen(
+                              videoLink: data['videoLink'],
+                              imageUrl: data['imageUrl'],
+                              title: data['title'],
+                              likes: data['likes'],
+                            );
+                          }).toList(),
+                        );
+                      }),
                 ),
               ),
             ),
@@ -165,38 +126,134 @@ class _FreeVideoManagementState extends State<FreeVideoManagement> {
               alignment: Alignment.bottomRight,
               child: BottomMaterialButton(
                 text: 'Add Video',
-                popUpactions: [
-                  SubmitButton(
-                    text: 'Add Video',
-                    onPressed: () {},
-                  )
-                ],
-                popUpChild: Wrap(
-                  children: const [
-                    Divider(
-                      color: Colors.amber,
-                    ),
-                    PopUpTextField(
+                popUpChild: Form(
+                  key: _freeVideoFormKey,
+                  child: Wrap(
+                    children: [
+                      const Divider(
+                        color: Colors.amber,
+                      ),
+                      PopUpTextField(
+                        controller: _titleController,
                         hint: 'WEB DEVELOPMENT | PART-1 ',
                         label: 'Title',
-                        widthRatio: 2),
-                    PopUpTextField(
-                        hint: 'WEB DEVELOPMENT',
-                        label: 'Course Name',
-                        widthRatio: 2),
-                    PopUpTextField(
-                        hint: 'Web', label: 'Category', widthRatio: 1),
-                    PopUpTextField(
-                        hint: 'Batch S', label: 'Batch', widthRatio: 1),
-                    PopUpTextField(
-                        hint: 'DD-MM-YYYY', label: 'Date', widthRatio: 1),
-                    PopUpTextField(hint: 'HH-MM', label: 'Time', widthRatio: 1),
-                    PopUpTextField(
-                        hint: 'Pick A File',
-                        label: 'Upload Video',
-                        widthRatio: 2),
-                  ],
+                        widthRatio: 2,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return ("Field cannot be empty");
+                          }
+                          return null;
+                        },
+                      ),
+                      PopUpTextField(
+                          controller: _categoryController,
+                          hint: 'Web',
+                          label: 'Category',
+                          widthRatio: 1),
+                      PopUpTextField(
+                          controller: _courseController,
+                          hint: 'HTML',
+                          label: 'Course Name',
+                          widthRatio: 1),
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                            vertical: MediaQuery.of(context).size.height *
+                                (20 / 792)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Material(
+                              type: MaterialType.button,
+                              color: Colors.amber,
+                              borderRadius: BorderRadius.circular(50),
+                              child: MaterialButton(
+                                padding: const EdgeInsets.all(20),
+                                onPressed: () async {
+                                  await uploadFile('images');
+                                },
+                                child: const Text('Pick Image'),
+                              ),
+                            ),
+                            Material(
+                              type: MaterialType.button,
+                              color: Colors.amber,
+                              borderRadius: BorderRadius.circular(50),
+                              child: MaterialButton(
+                                padding: const EdgeInsets.all(20),
+                                onPressed: () async {
+                                  await uploadFile('videos');
+                                },
+                                child: const Text('Pick Video'),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      LinearProgressIndicator(
+                        value: progress / 100,
+                      ),
+                    ],
+                  ),
                 ),
+                popUpactions: [
+                  Material(
+                    color: Colors.amberAccent,
+                    elevation: 4,
+                    type: MaterialType.button,
+                    child: MaterialButton(
+                      onPressed: () async {
+                        if (_freeVideoFormKey.currentState!.validate() &&
+                            imageFileName.isNotEmpty &&
+                            videoFileName.isNotEmpty) {
+                          try {
+                            DateTime currentTime = DateTime.now();
+                            await FirebaseFirestore.instance
+                                .collection('videos')
+                                .doc()
+                                .set(FreeVideoModel(
+                                  title: _titleController.text.trim(),
+                                  category: _categoryController.text.trim(),
+                                  course: _courseController.text.trim(),
+                                  likes: 0,
+                                  imageUrl: imageFileName,
+                                  videoLink: videoFileName,
+                                  uploadDate: currentTime.toString(),
+                                  uploadedTeacherEmail: FirebaseAuth
+                                      .instance.currentUser!.email
+                                      .toString(),
+                                ).toJson())
+                                .then((value) => print("Video Added"))
+                                .catchError((error) =>
+                                    print("Failed to add Video: $error"));
+                          } on FirebaseAuthException catch (error) {
+                            switch (error.code) {
+                              default:
+                                errorMessage =
+                                    "An undefined Error happened.+$error";
+                            }
+                            Fluttertoast.showToast(msg: errorMessage!);
+                          }
+                          Fluttertoast.showToast(
+                              msg: "Free Video Added Successfully");
+                          if (!mounted) {
+                            return;
+                          }
+                          Navigator.of(context, rootNavigator: true).pop();
+                        }
+                      },
+                      padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.width / 76.8),
+                      child: Text(
+                        'Add Video',
+                        style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width / 86,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           ],
