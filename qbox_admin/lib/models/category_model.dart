@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class CategoryModel {
   String? title;
   List<Courses>? courses;
+  List<String>? teachers;
 
   CategoryModel({this.title, this.courses});
 
@@ -14,6 +15,9 @@ class CategoryModel {
         courses!.add(Courses.fromJson(v));
       });
     }
+    if (json['teachers'] != null) {
+      teachers = json['teachers'].cast<String>();
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -23,6 +27,7 @@ class CategoryModel {
       data['courses'] =
           FieldValue.arrayUnion([courses!.map((v) => v.toJson()).toList()]);
     }
+    data['teachers'] = teachers;
     return data;
   }
 }
