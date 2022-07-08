@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,6 +29,10 @@ class _FreeVideoManagementState extends State<FreeVideoManagement> {
   String? errorMessage;
 
   Future uploadFile(String type) async {
+    String metaDataString = "image";
+    if (type == "videos") {
+      metaDataString = "video";
+    }
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
       Uint8List? file = result.files.first.bytes;
@@ -37,7 +40,11 @@ class _FreeVideoManagementState extends State<FreeVideoManagement> {
       UploadTask task = FirebaseStorage.instance
           .ref()
           .child("freeVideos/$type/$fileName")
-          .putData(file!);
+          .putData(
+              file!,
+              SettableMetadata(
+                contentType: metaDataString,
+              ));
       task.snapshotEvents.listen((event) {
         setState(() {
           progress = ((event.bytesTransferred.toDouble() /
@@ -57,6 +64,30 @@ class _FreeVideoManagementState extends State<FreeVideoManagement> {
         });
       });
     }
+  }
+
+  Map timeDifference(DateTime uploaded, DateTime now) {
+    Map values = {};
+    uploaded = DateTime(uploaded.year, uploaded.month, uploaded.day,
+        uploaded.hour, uploaded.minute, uploaded.second);
+    now = DateTime(
+        now.year, now.month, now.day, now.hour, now.minute, now.second);
+    if (now.difference(uploaded).inMinutes < 60) {
+      values["value"] = now.difference(uploaded).inMinutes;
+      values["string"] = "min";
+      return values;
+    } else if (now.difference(uploaded).inHours < 24) {
+      values["value"] = now.difference(uploaded).inHours;
+      values["string"] = "hours";
+      return values;
+    } else if (now.difference(uploaded).inDays < 365) {
+      values["value"] = now.difference(uploaded).inDays;
+      values["string"] = "days";
+      return values;
+    }
+    values["value"] = (now.difference(uploaded).inDays / 365).round();
+    values["string"] = "years";
+    return values;
   }
 
   @override
@@ -110,9 +141,13 @@ class _FreeVideoManagementState extends State<FreeVideoManagement> {
                               .map((DocumentSnapshot document) {
                             Map<String, dynamic> data =
                                 document.data()! as Map<String, dynamic>;
+                            Map timeDifferenceValue = timeDifference(
+                                DateTime.parse(data['uploadDate']),
+                                DateTime.now());
                             return HomeDisplayScreen(
                               videoLink: data['videoLink'],
                               imageUrl: data['imageUrl'],
+                              uploadDate: timeDifferenceValue,
                               title: data['title'],
                               likes: data['likes'],
                             );

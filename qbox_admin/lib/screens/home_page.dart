@@ -159,6 +159,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {},
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               CircleAvatar(
                                 radius: MediaQuery.of(context).size.width / 48,
@@ -167,18 +168,14 @@ class _HomePageState extends State<HomePage> {
                                   size: MediaQuery.of(context).size.width / 48,
                                 ),
                               ),
-                              SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width / 153.6,
-                              ),
                               Text(
                                 'Indrajit Sikdar',
                                 style: TextStyle(
                                     fontSize:
-                                        MediaQuery.of(context).size.width /
-                                            69.8181818,
+                                        MediaQuery.of(context).size.width / 70,
                                     fontWeight: FontWeight.bold),
                               ),
+                              const SizedBox(),
                             ],
                           ),
                         ),
@@ -245,7 +242,8 @@ class _HomePageState extends State<HomePage> {
                 child: FutureBuilder(
                     future: getHomeList(),
                     builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
+                      if (snapshot.connectionState == ConnectionState.waiting ||
+                          !snapshot.hasData) {
                         return const Center(child: CircularProgressIndicator());
                       }
                       return displayList[bodyIndex];

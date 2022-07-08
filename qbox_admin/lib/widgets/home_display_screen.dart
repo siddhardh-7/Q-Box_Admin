@@ -7,12 +7,14 @@ class HomeDisplayScreen extends StatelessWidget {
   final String imageUrl;
   final String videoLink;
   final int likes;
+  final Map uploadDate;
   const HomeDisplayScreen(
       {Key? key,
       required this.title,
       required this.imageUrl,
       required this.likes,
-      required this.videoLink})
+      required this.videoLink,
+      required this.uploadDate})
       : super(key: key);
 
   @override
@@ -61,7 +63,11 @@ class HomeDisplayScreen extends StatelessWidget {
               const SizedBox(),
               const Text('Figma '),
               Text('$likes Likes'),
-              const Text('4 minutes ago'),
+              Row(
+                children: [
+                  Text('${uploadDate['value']} ${uploadDate['string']} ago'),
+                ],
+              ),
               const SizedBox(),
             ],
           ),
@@ -108,13 +114,13 @@ class _VideoScreenState extends State<VideoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: Container(
-        margin: EdgeInsets.only(top: 20),
+        margin: const EdgeInsets.only(top: 20),
         alignment: Alignment.topRight,
         child: FloatingActionButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Icon(Icons.close)),
+            child: const Icon(Icons.close)),
       ),
       body: Chewie(
         controller: chewieController!,
