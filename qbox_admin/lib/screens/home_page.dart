@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:qbox_admin/screens/batch_management.dart';
-import 'package:qbox_admin/screens/coupon_management.dart';
-import 'package:qbox_admin/screens/course_management.dart';
-import 'package:qbox_admin/screens/free_video_management.dart';
-import 'package:qbox_admin/screens/level_up_management.dart';
-import 'package:qbox_admin/screens/practice_management.dart';
-import 'package:qbox_admin/screens/student_management.dart';
-import 'package:qbox_admin/screens/teacher_management.dart';
-import 'package:qbox_admin/screens/test_management.dart';
-import 'package:qbox_admin/screens/videos_management.dart';
+import 'package:qbox_admin/screens/managements/batch_management.dart';
+import 'package:qbox_admin/screens/managements/coupon_management.dart';
+import 'package:qbox_admin/screens/managements/course_management.dart';
+import 'package:qbox_admin/screens/managements/free_video_management.dart';
+import 'package:qbox_admin/screens/managements/level_up_management.dart';
+import 'package:qbox_admin/screens/managements/practice_management.dart';
+import 'package:qbox_admin/screens/managements/student_management.dart';
+import 'package:qbox_admin/screens/managements/teacher_management.dart';
+import 'package:qbox_admin/screens/managements/test_management.dart';
+import 'package:qbox_admin/screens/managements/videos_management.dart';
 import 'package:qbox_admin/widgets/home_tile.dart';
 
 enum Management {
@@ -242,9 +242,30 @@ class _HomePageState extends State<HomePage> {
                 child: FutureBuilder(
                     future: getHomeList(),
                     builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting ||
-                          !snapshot.hasData) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting &&
+                          !snapshot.hasData) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: const [
+                              Text('Trying To Fetching Data'),
+                              CircularProgressIndicator(),
+                            ],
+                          ),
+                        );
+                      }
+                      if (snapshot.connectionState == ConnectionState.done &&
+                          !snapshot.hasData) {
+                        return const Center(
+                          child: Text(
+                            'No Data is Available for you. Please Contact the Academics staff\n(Try to Refresh the Page)',
+                            textAlign: TextAlign.center,
+                          ),
+                        );
                       }
                       return displayList[bodyIndex];
                     }),
