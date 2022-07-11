@@ -7,22 +7,32 @@ import 'package:qbox_admin/widgets/bottom_material_button.dart';
 import 'package:qbox_admin/widgets/pop_up_text_field.dart';
 import 'package:qbox_admin/widgets/question_preview.dart';
 
-class QuestionAddingScreen extends StatefulWidget {
+class LevelUpQuestionAddingScreen extends StatefulWidget {
   final String category;
   final String course;
   final String chapter;
-  const QuestionAddingScreen(
+  final String testName;
+  final int duration;
+  final String examTime;
+  final int paperSet;
+  const LevelUpQuestionAddingScreen(
       {Key? key,
       required this.chapter,
       required this.course,
-      required this.category})
+      required this.category,
+      required this.testName,
+      required this.duration,
+      required this.paperSet,
+      required this.examTime})
       : super(key: key);
 
   @override
-  State<QuestionAddingScreen> createState() => _QuestionAddingScreenState();
+  State<LevelUpQuestionAddingScreen> createState() =>
+      _LevelUpQuestionAddingScreenState();
 }
 
-class _QuestionAddingScreenState extends State<QuestionAddingScreen> {
+class _LevelUpQuestionAddingScreenState
+    extends State<LevelUpQuestionAddingScreen> {
   final _questionController = TextEditingController();
   final _optionAController = TextEditingController();
   final _optionBController = TextEditingController();
@@ -88,26 +98,41 @@ class _QuestionAddingScreenState extends State<QuestionAddingScreen> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.white,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        title: Column(
           children: [
-            Text(
-              widget.category,
-              style: const TextStyle(
-                fontSize: 15,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  widget.testName,
+                  style: const TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+              ],
             ),
-            Text(
-              widget.course,
-              style: const TextStyle(
-                fontSize: 15,
-              ),
-            ),
-            Text(
-              widget.chapter,
-              style: const TextStyle(
-                fontSize: 15,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  widget.category,
+                  style: const TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+                Text(
+                  widget.course,
+                  style: const TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+                Text(
+                  widget.chapter,
+                  style: const TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -373,14 +398,19 @@ class _QuestionAddingScreenState extends State<QuestionAddingScreen> {
                         String userEmail =
                             FirebaseAuth.instance.currentUser!.email.toString();
                         await FirebaseFirestore.instance
-                            .collection('practice')
+                            .collection('levelUpTest')
                             .doc()
                             .set({
                               "uploadedTeacher": userEmail,
+                              "testName": widget.testName,
+                              "examTime": (widget.examTime).toString(),
+                              "duration": widget.duration,
                               "category": widget.category,
                               "course": widget.course,
                               "chapter": widget.chapter,
-                              "questions": questionsListToMap(questionsList),
+                              "paperSet": widget.paperSet,
+                              "questionsList":
+                                  questionsListToMap(questionsList),
                             })
                             .then((value) => print("Practice Set Added"))
                             .catchError((error) =>

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:qbox_admin/models/practice_model.dart';
-import 'package:qbox_admin/screens/question_paper_preview.dart';
+import 'package:qbox_admin/models/level_up_series_model.dart';
+import 'package:qbox_admin/widgets/level_up_question_paper_preview.dart';
 
-class HorizontalCard extends StatelessWidget {
-  final PracticeModel model;
+class LevelUpHorizontalCard extends StatelessWidget {
+  final LevelUpTestModel model;
 
-  const HorizontalCard({Key? key, required this.model}) : super(key: key);
+  const LevelUpHorizontalCard({Key? key, required this.model})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,8 @@ class HorizontalCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => QuestionPaperPreview(questionPaper: model)),
+              builder: (context) =>
+                  LevelUpQuestionPaperPreview(questionPaper: model)),
         );
       },
       child: Card(
@@ -27,7 +29,6 @@ class HorizontalCard extends StatelessWidget {
         ),
         child: Container(
           width: 300,
-          height: 100,
           padding: const EdgeInsets.all(17.5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,13 +48,19 @@ class HorizontalCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const Spacer(),
               Text(
-                model.chapter!,
+                model.testName!,
                 style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.w500,
                     color: Theme.of(context).primaryColor),
+              ),
+              Text(
+                model.chapter!,
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),

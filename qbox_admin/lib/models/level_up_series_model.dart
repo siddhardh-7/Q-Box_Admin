@@ -1,26 +1,38 @@
-class PracticeModel {
+class LevelUpTestModel {
   String? uploadedTeacher;
+  String? testName;
+  String? examTime;
+  int? duration;
   String? category;
   String? course;
   String? chapter;
-  List<Questions>? questions;
+  int? paperSet;
+  List<QuestionsList>? questionsList;
 
-  PracticeModel(
+  LevelUpTestModel(
       {this.uploadedTeacher,
+      this.testName,
+      this.examTime,
+      this.duration,
       this.category,
       this.course,
       this.chapter,
-      this.questions});
+      this.paperSet,
+      this.questionsList});
 
-  PracticeModel.fromJson(Map<String, dynamic> json) {
-    uploadedTeacher = json['uploadedTeacher'] as String;
-    category = json['category'] as String;
-    course = json['course'] as String;
-    chapter = json['chapter'] as String;
-    if (json['questions'] != null) {
-      questions = <Questions>[];
-      json['questions'].forEach((k, v) {
-        questions!.add(Questions.fromJson(v));
+  LevelUpTestModel.fromJson(Map<String, dynamic> json) {
+    uploadedTeacher = json['uploadedTeacher'];
+    testName = json['testName'];
+    examTime = json['examTime'];
+    duration = json['duration'];
+    category = json['category'];
+    course = json['course'];
+    chapter = json['chapter'];
+    paperSet = json['paperSet'];
+    if (json['questionsList'] != null) {
+      questionsList = <QuestionsList>[];
+      json['questionsList'].forEach((k, v) {
+        questionsList!.add(QuestionsList.fromJson(v));
       });
     }
   }
@@ -28,21 +40,25 @@ class PracticeModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['uploadedTeacher'] = uploadedTeacher;
+    data['testName'] = testName;
+    data['examTime'] = examTime;
+    data['duration'] = duration;
     data['category'] = category;
     data['course'] = course;
     data['chapter'] = chapter;
-    if (questions != null) {
-      data['questions'] = questions!.map((v) => v.toJson()).toList();
+    data['paperSet'] = paperSet;
+    if (questionsList != null) {
+      data['questionsList'] = questionsList!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Questions {
+class QuestionsList {
   int? id;
   String? question;
   String? description;
-  Options? options;
+  Answers? answers;
   bool? multipleCorrectAnswers;
   CorrectAnswers? correctAnswers;
   String? explanation;
@@ -50,11 +66,11 @@ class Questions {
   List<String>? tags;
   String? difficulty;
 
-  Questions(
+  QuestionsList(
       {this.id,
       this.question,
       this.description,
-      this.options,
+      this.answers,
       this.multipleCorrectAnswers,
       this.correctAnswers,
       this.explanation,
@@ -62,12 +78,12 @@ class Questions {
       this.tags,
       this.difficulty});
 
-  Questions.fromJson(Map<String, dynamic> json) {
+  QuestionsList.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     question = json['question'];
     description = json['description'];
-    options =
-        json['options'] != null ? Options.fromJson(json['options']) : null;
+    answers =
+        json['answers'] != null ? Answers.fromJson(json['answers']) : null;
     multipleCorrectAnswers = json['multiple_correct_answers'];
     correctAnswers = json['correct_answers'] != null
         ? CorrectAnswers.fromJson(json['correct_answers'])
@@ -83,8 +99,8 @@ class Questions {
     data['id'] = id;
     data['question'] = question;
     data['description'] = description;
-    if (options != null) {
-      data['options'] = options!.toJson();
+    if (answers != null) {
+      data['answers'] = answers!.toJson();
     }
     data['multiple_correct_answers'] = multipleCorrectAnswers;
     if (correctAnswers != null) {
@@ -98,27 +114,27 @@ class Questions {
   }
 }
 
-class Options {
-  String? optionA;
-  String? optionB;
-  String? optionC;
-  String? optionD;
+class Answers {
+  String? answerA;
+  String? answerB;
+  String? answerC;
+  String? answerD;
 
-  Options({this.optionA, this.optionB, this.optionC, this.optionD});
+  Answers({this.answerA, this.answerB, this.answerC, this.answerD});
 
-  Options.fromJson(Map<String, dynamic> json) {
-    optionA = json['optionA'];
-    optionB = json['optionB'];
-    optionC = json['optionC'];
-    optionD = json['optionD'];
+  Answers.fromJson(Map<String, dynamic> json) {
+    answerA = json['answer_a'];
+    answerB = json['answer_b'];
+    answerC = json['answer_c'];
+    answerD = json['answer_d'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['optionA'] = optionA;
-    data['optionB'] = optionB;
-    data['optionC'] = optionC;
-    data['optionD'] = optionD;
+    data['answer_a'] = answerA;
+    data['answer_b'] = answerB;
+    data['answer_c'] = answerC;
+    data['answer_d'] = answerD;
     return data;
   }
 }

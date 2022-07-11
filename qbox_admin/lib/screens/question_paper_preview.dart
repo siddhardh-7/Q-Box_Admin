@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:qbox_admin/models/practice_model.dart';
-import 'package:qbox_admin/widgets/question_paper_options_card.dart';
 import 'package:qbox_admin/widgets/question_preview.dart';
 
 class QuestionPaperPreview extends StatelessWidget {
@@ -18,14 +17,6 @@ class QuestionPaperPreview extends StatelessWidget {
           backgroundColor: Colors.white,
           title: Column(
             children: [
-              Text(
-                questionPaper.testName!,
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontSize: 28,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -83,8 +74,6 @@ class A3SheetContainer extends StatelessWidget {
         margin: EdgeInsets.only(
           top: MediaQuery.of(context).size.height * (30 / 792),
           bottom: MediaQuery.of(context).size.height * (30 / 792),
-          // left: MediaQuery.of(context).size.width * (318 / 1536),
-          // right: MediaQuery.of(context).size.width * (318 / 1536),
         ),
         decoration: BoxDecoration(
           color: Colors.white,

@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:qbox_admin/models/practice_model.dart';
 import 'package:qbox_admin/screens/question_adding_screen.dart';
 import 'package:qbox_admin/widgets/bottom_material_button.dart';
-import 'package:qbox_admin/widgets/container_with_label.dart';
 import 'package:qbox_admin/widgets/horizontal_card.dart';
 import 'package:qbox_admin/widgets/pop_up_text_field.dart';
 
@@ -17,7 +15,6 @@ class PracticeManagement extends StatefulWidget {
 }
 
 class _PracticeManagementState extends State<PracticeManagement> {
-  final _testNameController = TextEditingController();
   final _chapterController = TextEditingController();
   final _courseController = TextEditingController();
   final _categoryController = TextEditingController();
@@ -104,18 +101,6 @@ class _PracticeManagementState extends State<PracticeManagement> {
                           color: Colors.amber,
                         ),
                         PopUpTextField(
-                          controller: _testNameController,
-                          hint: 'Weekly Test 1',
-                          label: 'Test Name',
-                          widthRatio: 2,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return ("Field cannot be empty");
-                            }
-                            return null;
-                          },
-                        ),
-                        PopUpTextField(
                           controller: _categoryController,
                           hint: 'Engineering',
                           label: 'Category',
@@ -167,14 +152,9 @@ class _PracticeManagementState extends State<PracticeManagement> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => QuestionAddingScreen(
-                                        category:
-                                            _categoryController.text.trim(),
-                                        course: _courseController.text.trim(),
-                                        chapter:
-                                            _categoryController.text.trim(),
-                                        testName:
-                                            _testNameController.text.trim(),
-                                      )),
+                                      category: _categoryController.text.trim(),
+                                      course: _courseController.text.trim(),
+                                      chapter: _chapterController.text.trim())),
                             );
                           }
                         },
