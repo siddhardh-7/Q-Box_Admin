@@ -17,7 +17,7 @@ enum Management {
   courseManagement,
   batchManagement,
   studentManagement,
-  testManagement,
+  fullLengthTestManagement,
   teacherManagement,
   couponManagement,
   videoManagement,
@@ -77,26 +77,21 @@ class _HomePageState extends State<HomePage> {
   }
 
   // Left Panel Display Name
-  List<String> sideTeachersList = [
-    'Live Videos',
-    'Free Videos',
-    'Level Up Tests',
-    'Practice'
-  ];
+  List<String> sideTeachersList = ['Free Videos', 'Practice'];
 
   List<String> sideAdminList = [
     'Courses ',
     'Batch',
     'Students',
-    'Tests',
     'Teachers',
     'Coupons',
+    'Full Length Tests',
+    'Level Up Tests',
+    'Live Videos',
   ];
   // Left Panel Management List
   List sideTeachersManagementList = [
-    Management.videoManagement,
     Management.freeVideosManagement,
-    Management.levelUpSeriesManagement,
     Management.practiceQuestionManagement,
   ];
 
@@ -104,16 +99,16 @@ class _HomePageState extends State<HomePage> {
     Management.courseManagement,
     Management.batchManagement,
     Management.studentManagement,
-    Management.testManagement,
     Management.teacherManagement,
     Management.couponManagement,
+    Management.fullLengthTestManagement,
+    Management.levelUpSeriesManagement,
+    Management.videoManagement,
   ];
 
   // Right Panel Display List
   List<Widget> teachersList = [
-    const VideoManagement(),
     const FreeVideoManagement(),
-    const LevelUpManagement(),
     const PracticeManagement(),
   ];
 
@@ -121,9 +116,11 @@ class _HomePageState extends State<HomePage> {
     const CourseManagement(),
     const BatchManagement(),
     const StudentManagement(),
-    const TestManagement(),
     const TeacherManagement(),
     const CouponManagement(),
+    const FullLengthTestManagement(),
+    const LevelUpManagement(),
+    const VideoManagement(),
   ];
 
   @override

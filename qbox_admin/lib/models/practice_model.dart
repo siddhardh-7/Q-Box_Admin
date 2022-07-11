@@ -3,6 +3,7 @@ class PracticeModel {
   String? category;
   String? course;
   String? chapter;
+  String? subject;
   List<Questions>? questions;
 
   PracticeModel(
@@ -10,6 +11,7 @@ class PracticeModel {
       this.category,
       this.course,
       this.chapter,
+      this.subject,
       this.questions});
 
   PracticeModel.fromJson(Map<String, dynamic> json) {
@@ -17,6 +19,7 @@ class PracticeModel {
     category = json['category'] as String;
     course = json['course'] as String;
     chapter = json['chapter'] as String;
+    subject = json['subject'] as String;
     if (json['questions'] != null) {
       questions = <Questions>[];
       json['questions'].forEach((k, v) {
@@ -31,6 +34,7 @@ class PracticeModel {
     data['category'] = category;
     data['course'] = course;
     data['chapter'] = chapter;
+    data['subject'] = subject;
     if (questions != null) {
       data['questions'] = questions!.map((v) => v.toJson()).toList();
     }

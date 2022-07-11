@@ -11,19 +11,23 @@ class LevelUpQuestionAddingScreen extends StatefulWidget {
   final String category;
   final String course;
   final String chapter;
+  final String subject;
   final String testName;
   final int duration;
   final String examTime;
   final int paperSet;
-  const LevelUpQuestionAddingScreen(
+  String? collectionName;
+  LevelUpQuestionAddingScreen(
       {Key? key,
       required this.chapter,
+      required this.subject,
       required this.course,
       required this.category,
       required this.testName,
       required this.duration,
       required this.paperSet,
-      required this.examTime})
+      required this.examTime,
+      this.collectionName = "levelUpTest"})
       : super(key: key);
 
   @override
@@ -398,7 +402,7 @@ class _LevelUpQuestionAddingScreenState
                         String userEmail =
                             FirebaseAuth.instance.currentUser!.email.toString();
                         await FirebaseFirestore.instance
-                            .collection('levelUpTest')
+                            .collection(widget.collectionName!)
                             .doc()
                             .set({
                               "uploadedTeacher": userEmail,
@@ -408,6 +412,7 @@ class _LevelUpQuestionAddingScreenState
                               "category": widget.category,
                               "course": widget.course,
                               "chapter": widget.chapter,
+                              "subject": widget.subject,
                               "paperSet": widget.paperSet,
                               "questionsList":
                                   questionsListToMap(questionsList),

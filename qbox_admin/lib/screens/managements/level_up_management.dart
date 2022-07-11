@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:qbox_admin/models/level_up_series_model.dart';
 import 'package:qbox_admin/screens/level_up_question_adding_screen.dart';
 import 'package:qbox_admin/widgets/bottom_material_button.dart';
@@ -19,6 +17,7 @@ class _LevelUpManagementState extends State<LevelUpManagement> {
   final GlobalKey<FormState> _levelUpTestFormKey = GlobalKey<FormState>();
   final _testNameController = TextEditingController();
   final _chapterController = TextEditingController();
+  final _subjectController = TextEditingController();
   final _courseController = TextEditingController();
   final _categoryController = TextEditingController();
   final _paperSetController = TextEditingController();
@@ -51,43 +50,140 @@ class _LevelUpManagementState extends State<LevelUpManagement> {
                 margin: EdgeInsets.only(
                   bottom: MediaQuery.of(context).size.width * (1 / 153.6),
                 ),
-                child: SingleChildScrollView(
-                  child: StreamBuilder<QuerySnapshot>(
-                      stream: FirebaseFirestore.instance
-                          .collection('levelUpTest')
-                          .where("uploadedTeacher",
-                              isEqualTo: FirebaseAuth
-                                  .instance.currentUser!.email
-                                  .toString())
-                          .snapshots(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<QuerySnapshot> snapshot) {
-                        if (snapshot.hasError) {
-                          return const Text('Something went wrong!');
-                        }
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        }
-                        return Wrap(
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          alignment: WrapAlignment.center,
-                          runSpacing: 10,
-                          spacing: 10,
-                          children: snapshot.data!.docs
-                              .map((DocumentSnapshot document) {
-                            Map<String, dynamic> data =
-                                document.data()! as Map<String, dynamic>;
-                            LevelUpTestModel model =
-                                LevelUpTestModel.fromJson(data);
-                            levelUpModelList.add(model);
-                            return LevelUpHorizontalCard(
-                              model: model,
-                            );
-                          }).toList(),
-                        );
-                      }),
+                child: ListView(
+                  padding: EdgeInsets.all(
+                    MediaQuery.of(context).size.width * (1 / 153.6),
+                  ),
+                  children: [
+                    ExpansionTile(
+                      backgroundColor: Colors.white,
+                      title: const Text('Upcoming'),
+                      children: [
+                        Divider(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        SingleChildScrollView(
+                          child: StreamBuilder<QuerySnapshot>(
+                              stream: FirebaseFirestore.instance
+                                  .collection('levelUpTest')
+                                  .snapshots(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.hasError) {
+                                  return const Text('Something went wrong!');
+                                }
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                }
+                                return Wrap(
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  alignment: WrapAlignment.center,
+                                  runSpacing: 10,
+                                  spacing: 10,
+                                  children: snapshot.data!.docs
+                                      .map((DocumentSnapshot document) {
+                                    Map<String, dynamic> data = document.data()!
+                                        as Map<String, dynamic>;
+                                    DateTime endTime =
+                                        DateTime.parse(data['examTime']);
+                                    DateTime now = DateTime.now();
+                                    if (DateTime(
+                                                endTime.year,
+                                                endTime.month,
+                                                endTime.day,
+                                                endTime.hour,
+                                                endTime.minute,
+                                                endTime.second)
+                                            .difference(DateTime(
+                                                now.year,
+                                                now.month,
+                                                now.day,
+                                                now.hour,
+                                                now.second))
+                                            .inSeconds >=
+                                        0) {
+                                      LevelUpTestModel model =
+                                          LevelUpTestModel.fromJson(data);
+                                      levelUpModelList.add(model);
+                                      return LevelUpHorizontalCard(
+                                        model: model,
+                                      );
+                                    } else {
+                                      return Container();
+                                    }
+                                  }).toList(),
+                                );
+                              }),
+                        ),
+                      ],
+                    ),
+                    ExpansionTile(
+                      backgroundColor: Colors.white,
+                      title: const Text('completed'),
+                      children: [
+                        Divider(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        SingleChildScrollView(
+                          child: StreamBuilder<QuerySnapshot>(
+                              stream: FirebaseFirestore.instance
+                                  .collection('levelUpTest')
+                                  .snapshots(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.hasError) {
+                                  return const Text('Something went wrong!');
+                                }
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                }
+                                return Wrap(
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  alignment: WrapAlignment.center,
+                                  runSpacing: 10,
+                                  spacing: 10,
+                                  children: snapshot.data!.docs
+                                      .map((DocumentSnapshot document) {
+                                    Map<String, dynamic> data = document.data()!
+                                        as Map<String, dynamic>;
+                                    DateTime endTime =
+                                        DateTime.parse(data['examTime']);
+                                    DateTime now = DateTime.now();
+                                    if (DateTime(
+                                                endTime.year,
+                                                endTime.month,
+                                                endTime.day,
+                                                endTime.hour,
+                                                endTime.minute,
+                                                endTime.second)
+                                            .difference(DateTime(
+                                                now.year,
+                                                now.month,
+                                                now.day,
+                                                now.hour,
+                                                now.second))
+                                            .inSeconds <
+                                        0) {
+                                      LevelUpTestModel model =
+                                          LevelUpTestModel.fromJson(data);
+                                      levelUpModelList.add(model);
+                                      return LevelUpHorizontalCard(
+                                        model: model,
+                                      );
+                                    } else {
+                                      return Container();
+                                    }
+                                  }).toList(),
+                                );
+                              }),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -152,6 +248,18 @@ class _LevelUpManagementState extends State<LevelUpManagement> {
                         },
                       ),
                       PopUpTextField(
+                        controller: _subjectController,
+                        hint: 'maths',
+                        label: 'subject',
+                        widthRatio: 1,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return ("Field cannot be empty");
+                          }
+                          return null;
+                        },
+                      ),
+                      PopUpTextField(
                         controller: _paperSetController,
                         hint: 'Set 1',
                         label: 'Paper Set',
@@ -205,6 +313,7 @@ class _LevelUpManagementState extends State<LevelUpManagement> {
                                 category: _categoryController.text.trim(),
                                 course: _courseController.text.trim(),
                                 chapter: _chapterController.text.trim(),
+                                subject: _subjectController.text.trim(),
                                 testName: _testNameController.text.trim(),
                                 duration:
                                     int.parse(_durationController.text.trim()),
@@ -236,148 +345,3 @@ class _LevelUpManagementState extends State<LevelUpManagement> {
     );
   }
 }
-
-//
-// ListView(
-// padding: EdgeInsets.all(
-// MediaQuery.of(context).size.width * (1 / 153.6)),
-// children: [
-// Container(
-// margin: EdgeInsets.only(
-// bottom:
-// MediaQuery.of(context).size.width * (1 / 153.6)),
-// child: ExpansionTile(
-// backgroundColor: Colors.white,
-// title: const Text('Engineering Course'),
-// trailing: CourseManagementExpansionTailWidget(
-// customTileExpanded: _customTileExpanded),
-// onExpansionChanged: (bool expanded) {
-// setState(() => _customTileExpanded = expanded);
-// },
-// children: [
-// Padding(
-// padding: EdgeInsets.symmetric(
-// horizontal: MediaQuery.of(context).size.width *
-// (1 / 153.6)),
-// child: const Divider(
-// color: Colors.amber,
-// ),
-// ),
-// ListTile(
-// title: const Text('B.Tech CSE Course'),
-// trailing: IconButton(
-// onPressed: () {},
-// icon: const Icon(Icons.mode_edit_rounded),
-// ),
-// ),
-// ListTile(
-// title: const Text('B.Tech ECE Course'),
-// trailing: IconButton(
-// onPressed: () {},
-// icon: const Icon(Icons.mode_edit_rounded),
-// ),
-// ),
-// ListTile(
-// title: const Text('B.Tech EEE Course'),
-// trailing: IconButton(
-// onPressed: () {},
-// icon: const Icon(Icons.mode_edit_rounded),
-// ),
-// ),
-// const SizedBox(),
-// ],
-// ),
-// ),
-// Container(
-// margin: EdgeInsets.only(
-// bottom:
-// MediaQuery.of(context).size.width * (1 / 153.6)),
-// child: ExpansionTile(
-// backgroundColor: Colors.white,
-// title: const Text('Web Development Course'),
-// trailing: CourseManagementExpansionTailWidget(
-// customTileExpanded: _customTileExpanded),
-// onExpansionChanged: (bool expanded) {
-// setState(() => _customTileExpanded = expanded);
-// },
-// children: [
-// Padding(
-// padding: EdgeInsets.symmetric(
-// horizontal: MediaQuery.of(context).size.width *
-// (1 / 153.6)),
-// child: const Divider(
-// color: Colors.amber,
-// ),
-// ),
-// ListTile(
-// title: const Text('HTML/CSS/Javascript'),
-// trailing: IconButton(
-// onPressed: () {},
-// icon: const Icon(Icons.mode_edit_rounded),
-// ),
-// ),
-// ListTile(
-// title: const Text('Angular'),
-// trailing: IconButton(
-// onPressed: () {},
-// icon: const Icon(Icons.mode_edit_rounded),
-// ),
-// ),
-// ListTile(
-// title: const Text('Vue'),
-// trailing: IconButton(
-// onPressed: () {},
-// icon: const Icon(Icons.mode_edit_rounded),
-// ),
-// ),
-// const SizedBox(),
-// ],
-// ),
-// ),
-// Container(
-// margin: EdgeInsets.only(
-// bottom:
-// MediaQuery.of(context).size.width * (1 / 153.6)),
-// child: ExpansionTile(
-// backgroundColor: Colors.white,
-// title: const Text('Backend Development Course'),
-// trailing: CourseManagementExpansionTailWidget(
-// customTileExpanded: _customTileExpanded),
-// onExpansionChanged: (bool expanded) {
-// setState(() => _customTileExpanded = expanded);
-// },
-// children: [
-// Padding(
-// padding: EdgeInsets.symmetric(
-// horizontal: MediaQuery.of(context).size.width *
-// (1 / 153.6)),
-// child: const Divider(
-// color: Colors.amber,
-// ),
-// ),
-// ListTile(
-// title: const Text('Node.js'),
-// trailing: IconButton(
-// onPressed: () {},
-// icon: const Icon(Icons.mode_edit_rounded),
-// ),
-// ),
-// ListTile(
-// title: const Text('django'),
-// trailing: IconButton(
-// onPressed: () {},
-// icon: const Icon(Icons.mode_edit_rounded),
-// ),
-// ),
-// ListTile(
-// title: const Text('Mysql'),
-// trailing: IconButton(
-// onPressed: () {},
-// icon: const Icon(Icons.mode_edit_rounded),
-// ),
-// ),
-// ],
-// ),
-// ),
-// ],
-// ),
