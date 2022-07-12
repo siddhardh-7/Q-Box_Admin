@@ -47,7 +47,7 @@ class Courses {
       batches = null;
     }
     payment =
-        json['payments'] != null ? Payment.fromJson(json['payments']) : null;
+        json['payment'] != null ? Payment.fromJson(json['payment']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -55,7 +55,7 @@ class Courses {
     data['courseName'] = courseName;
     data['batches'] = [batches];
     if (payment != null) {
-      data['payments'] = payment!.toJson();
+      data['payment'] = payment!.toJson();
     }
     return data;
   }

@@ -16,13 +16,14 @@ class CourseManagement extends StatefulWidget {
 class _CourseManagementState extends State<CourseManagement> {
   final _formKey = GlobalKey<FormState>();
   final _courseFormKey = GlobalKey<FormState>();
+  final _courseEditingFormKey = GlobalKey<FormState>();
   String? errorMessage;
   List categoryModelsList = [];
 
   final _categoryController = TextEditingController();
   final _courseController = TextEditingController();
   final _oneMonthFeeController = TextEditingController();
-  final _sixMonthController = TextEditingController();
+  final _sixMonthFeeController = TextEditingController();
   final _oneYearFeeController = TextEditingController();
   final _twoYearFeeController = TextEditingController();
 
@@ -82,6 +83,23 @@ class _CourseManagementState extends State<CourseManagement> {
                                 ),
                               ),
                               trailing: IconButton(
+                                  onPressed: () async {
+                                    final title = document.id;
+                                    await FirebaseFirestore.instance
+                                        .collection("cat")
+                                        .doc(title)
+                                        .delete()
+                                        .then(
+                                          (doc) => print("Category deleted"),
+                                          onError: (e) => print(
+                                              "Error updating document $e"),
+                                        );
+                                  },
+                                  icon: const Icon(
+                                    Icons.delete_outline_rounded,
+                                    color: Colors.redAccent,
+                                  )),
+                              leading: IconButton(
                                 onPressed: () {
                                   showDialog(
                                       context: context,
@@ -158,7 +176,7 @@ class _CourseManagementState extends State<CourseManagement> {
                                                         ),
                                                         PopUpTextField(
                                                           controller:
-                                                              _sixMonthController,
+                                                              _sixMonthFeeController,
                                                           hint: 'Rs.3000',
                                                           label:
                                                               'Course Payment for 6 Month',
@@ -250,11 +268,11 @@ class _CourseManagementState extends State<CourseManagement> {
                                                                 })
                                                                 .then((value) =>
                                                                     print(
-                                                                        "Category Added"))
+                                                                        "Course Added"))
                                                                 .catchError(
                                                                     (error) =>
                                                                         print(
-                                                                            "Failed to add category: $error"));
+                                                                            "Failed to add Course: $error"));
                                                           } on FirebaseAuthException catch (error) {
                                                             switch (
                                                                 error.code) {
@@ -268,7 +286,7 @@ class _CourseManagementState extends State<CourseManagement> {
                                                           }
                                                           Fluttertoast.showToast(
                                                               msg:
-                                                                  "Category Added Successfully");
+                                                                  "Course Added Successfully");
                                                           if (!mounted) return;
                                                           Navigator.of(context,
                                                                   rootNavigator:
@@ -282,7 +300,7 @@ class _CourseManagementState extends State<CourseManagement> {
                                                                   .width /
                                                               76.8),
                                                       child: Text(
-                                                        'Add Category',
+                                                        'Add Course',
                                                         style: TextStyle(
                                                           fontSize: MediaQuery.of(
                                                                       context)
@@ -318,6 +336,325 @@ class _CourseManagementState extends State<CourseManagement> {
                                 for (Courses course in courses)
                                   ListTile(
                                     title: Text(course.courseName!),
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Center(
+                                              child: SingleChildScrollView(
+                                                child: StatefulBuilder(builder:
+                                                    (BuildContext context,
+                                                        StateSetter setState) {
+                                                  return AlertDialog(
+                                                    title: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                            course.courseName!),
+                                                        IconButton(
+                                                            onPressed: () {
+                                                              Navigator.of(
+                                                                      context,
+                                                                      rootNavigator:
+                                                                          true)
+                                                                  .pop();
+                                                            },
+                                                            icon: const Icon(Icons
+                                                                .close_rounded))
+                                                      ],
+                                                    ),
+                                                    contentPadding:
+                                                        EdgeInsets.all(
+                                                            MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                (2 / 153.6)),
+                                                    content: Form(
+                                                      key:
+                                                          _courseEditingFormKey,
+                                                      child: SizedBox(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            (700 / 1563),
+                                                        child: Wrap(
+                                                          children: [
+                                                            const Divider(
+                                                              color:
+                                                                  Colors.amber,
+                                                            ),
+                                                            PopUpTextField(
+                                                              controller:
+                                                                  _courseController,
+                                                              hint: course
+                                                                  .courseName!,
+                                                              label:
+                                                                  'Course Name',
+                                                              widthRatio: 2,
+                                                              validator:
+                                                                  (value) {
+                                                                if (value!
+                                                                    .isEmpty) {
+                                                                  return ("Field cannot be empty");
+                                                                }
+                                                                return null;
+                                                              },
+                                                            ),
+                                                            PopUpTextField(
+                                                              controller:
+                                                                  _oneMonthFeeController,
+                                                              hint: course
+                                                                  .payment!
+                                                                  .s1month!,
+                                                              label:
+                                                                  'Course Payment for 1 Month',
+                                                              widthRatio: 1,
+                                                              validator:
+                                                                  (value) {
+                                                                if (value!
+                                                                    .isEmpty) {
+                                                                  return ("Field cannot be empty");
+                                                                }
+                                                                return null;
+                                                              },
+                                                            ),
+                                                            PopUpTextField(
+                                                              controller:
+                                                                  _sixMonthFeeController,
+                                                              hint: course
+                                                                  .payment!
+                                                                  .s6month!,
+                                                              label:
+                                                                  'Course Payment for 6 Month',
+                                                              widthRatio: 1,
+                                                              validator:
+                                                                  (value) {
+                                                                if (value!
+                                                                    .isEmpty) {
+                                                                  return ("Field cannot be empty");
+                                                                }
+                                                                return null;
+                                                              },
+                                                            ),
+                                                            PopUpTextField(
+                                                              controller:
+                                                                  _oneYearFeeController,
+                                                              hint: course
+                                                                  .payment!
+                                                                  .s12month!,
+                                                              label:
+                                                                  'Course Payment for 1 Year',
+                                                              widthRatio: 1,
+                                                              validator:
+                                                                  (value) {
+                                                                if (value!
+                                                                    .isEmpty) {
+                                                                  return ("Field cannot be empty");
+                                                                }
+                                                                return null;
+                                                              },
+                                                            ),
+                                                            PopUpTextField(
+                                                              controller:
+                                                                  _twoYearFeeController,
+                                                              hint: course
+                                                                  .payment!
+                                                                  .s24months!,
+                                                              label:
+                                                                  'Course Payment for 2 Years',
+                                                              widthRatio: 1,
+                                                              validator:
+                                                                  (value) {
+                                                                if (value!
+                                                                    .isEmpty) {
+                                                                  return ("Field cannot be empty");
+                                                                }
+                                                                return null;
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    actions: [
+                                                      Material(
+                                                        color: Colors.redAccent,
+                                                        elevation: 4,
+                                                        type:
+                                                            MaterialType.button,
+                                                        child: MaterialButton(
+                                                          onPressed: () async {
+                                                            final title =
+                                                                document.id;
+                                                            try {
+                                                              await FirebaseFirestore
+                                                                  .instance
+                                                                  .collection(
+                                                                      'cat')
+                                                                  .doc(title)
+                                                                  .update({
+                                                                    "courses.${course.courseName!.toLowerCase()}":
+                                                                        FieldValue
+                                                                            .delete()
+                                                                  })
+                                                                  .then((value) =>
+                                                                      print(
+                                                                          "Course Deleted"))
+                                                                  .catchError(
+                                                                      (error) =>
+                                                                          print(
+                                                                              "Failed to delete Course: $error"));
+                                                            } on FirebaseAuthException catch (error) {
+                                                              switch (
+                                                                  error.code) {
+                                                                default:
+                                                                  errorMessage =
+                                                                      "An undefined Error happened.+$error";
+                                                              }
+                                                              Fluttertoast
+                                                                  .showToast(
+                                                                      msg:
+                                                                          errorMessage!);
+                                                            }
+                                                            Fluttertoast.showToast(
+                                                                msg:
+                                                                    "Course deleted Successfully");
+                                                            if (!mounted) {
+                                                              return;
+                                                            }
+                                                            Navigator.of(
+                                                                    context,
+                                                                    rootNavigator:
+                                                                        true)
+                                                                .pop();
+                                                          },
+                                                          padding: EdgeInsets
+                                                              .all(MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width /
+                                                                  76.8),
+                                                          child: Text(
+                                                            'Delete Course',
+                                                            style: TextStyle(
+                                                              fontSize: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width /
+                                                                  86,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Material(
+                                                        color:
+                                                            Colors.amberAccent,
+                                                        elevation: 4,
+                                                        type:
+                                                            MaterialType.button,
+                                                        child: MaterialButton(
+                                                          onPressed: () async {
+                                                            if (_courseEditingFormKey
+                                                                .currentState!
+                                                                .validate()) {
+                                                              final title =
+                                                                  document.id;
+                                                              try {
+                                                                await FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'cat')
+                                                                    .doc(title)
+                                                                    .update({
+                                                                      "courses.${_courseController.text.trim().toLowerCase()}":
+                                                                          {
+                                                                        "courseName": _courseController
+                                                                            .text
+                                                                            .trim(),
+                                                                        "batches":
+                                                                            [],
+                                                                        "payment":
+                                                                            {
+                                                                          "1month": _oneMonthFeeController
+                                                                              .text
+                                                                              .trim(),
+                                                                          "6month": _oneMonthFeeController
+                                                                              .text
+                                                                              .trim(),
+                                                                          "12month": _oneMonthFeeController
+                                                                              .text
+                                                                              .trim(),
+                                                                          "24months": _oneMonthFeeController
+                                                                              .text
+                                                                              .trim(),
+                                                                        }
+                                                                      }
+                                                                    })
+                                                                    .then((value) =>
+                                                                        print(
+                                                                            "Course updated"))
+                                                                    .catchError(
+                                                                        (error) =>
+                                                                            print("Failed to update Course: $error"));
+                                                              } on FirebaseAuthException catch (error) {
+                                                                switch (error
+                                                                    .code) {
+                                                                  default:
+                                                                    errorMessage =
+                                                                        "An undefined Error happened.+$error";
+                                                                }
+                                                                Fluttertoast
+                                                                    .showToast(
+                                                                        msg:
+                                                                            errorMessage!);
+                                                              }
+                                                              Fluttertoast
+                                                                  .showToast(
+                                                                      msg:
+                                                                          "Course updated Successfully");
+                                                              if (!mounted) {
+                                                                return;
+                                                              }
+                                                              Navigator.of(
+                                                                      context,
+                                                                      rootNavigator:
+                                                                          true)
+                                                                  .pop();
+                                                            }
+                                                          },
+                                                          padding: EdgeInsets
+                                                              .all(MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width /
+                                                                  76.8),
+                                                          child: Text(
+                                                            'Updated Course',
+                                                            style: TextStyle(
+                                                              fontSize: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width /
+                                                                  86,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                }),
+                                              ),
+                                            );
+                                          });
+                                    },
                                   ),
                             ],
                           );
