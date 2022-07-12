@@ -11,11 +11,13 @@ class QuestionAddingScreen extends StatefulWidget {
   final String category;
   final String course;
   final String chapter;
+  final String subject;
   const QuestionAddingScreen(
       {Key? key,
       required this.chapter,
       required this.course,
-      required this.category})
+      required this.category,
+      required this.subject})
       : super(key: key);
 
   @override
@@ -380,6 +382,7 @@ class _QuestionAddingScreenState extends State<QuestionAddingScreen> {
                               "category": widget.category,
                               "course": widget.course,
                               "chapter": widget.chapter,
+                              "subject": widget.subject,
                               "questions": questionsListToMap(questionsList),
                             })
                             .then((value) => print("Practice Set Added"))

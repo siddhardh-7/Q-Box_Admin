@@ -18,6 +18,7 @@ class _PracticeManagementState extends State<PracticeManagement> {
   final _chapterController = TextEditingController();
   final _courseController = TextEditingController();
   final _categoryController = TextEditingController();
+  final _subjectController = TextEditingController();
 
   final GlobalKey<FormState> _questionPaperDetailsFormKey =
       GlobalKey<FormState>();
@@ -136,6 +137,18 @@ class _PracticeManagementState extends State<PracticeManagement> {
                             return null;
                           },
                         ),
+                        PopUpTextField(
+                          controller: _subjectController,
+                          hint: 'Maths',
+                          label: 'Subject',
+                          widthRatio: 2,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return ("Field cannot be empty");
+                            }
+                            return null;
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -152,9 +165,12 @@ class _PracticeManagementState extends State<PracticeManagement> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => QuestionAddingScreen(
-                                      category: _categoryController.text.trim(),
-                                      course: _courseController.text.trim(),
-                                      chapter: _chapterController.text.trim())),
+                                        category:
+                                            _categoryController.text.trim(),
+                                        course: _courseController.text.trim(),
+                                        chapter: _chapterController.text.trim(),
+                                        subject: _subjectController.text.trim(),
+                                      )),
                             );
                           }
                         },
