@@ -579,6 +579,8 @@ class _CourseManagementState extends State<CourseManagement> {
                                                                             .trim(),
                                                                         "batches":
                                                                             [],
+                                                                        "teachers":
+                                                                            [],
                                                                         "payment":
                                                                             {
                                                                           "1month": _oneMonthFeeController
@@ -593,7 +595,7 @@ class _CourseManagementState extends State<CourseManagement> {
                                                                           "24months": _oneMonthFeeController
                                                                               .text
                                                                               .trim(),
-                                                                        }
+                                                                        },
                                                                       }
                                                                     })
                                                                     .then((value) =>

@@ -18,17 +18,10 @@ class _BatchManagementState extends State<BatchManagement> {
   String? errorMessage;
   Set<String> teachersList = {};
   List categoryModelsList = [];
-  String teacherDropDownValue = 'Teacher 1';
+
   final _batchController = TextEditingController();
   final GlobalKey<FormState> _batchFormKey = GlobalKey<FormState>();
-
-  var teacherItems = [
-    'Teacher 1',
-    'Teacher 2',
-    'Teacher 3',
-    'Teacher 4',
-    'Teacher 5'
-  ];
+  final GlobalKey<FormState> _editingBatchFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +95,8 @@ class _BatchManagementState extends State<BatchManagement> {
                                     title: Text(course.courseName!),
                                     trailing: IconButton(
                                       onPressed: () {
+                                        String teacherDropDownValue =
+                                            model.teachers![0];
                                         showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
@@ -230,8 +225,9 @@ class _BatchManagementState extends State<BatchManagement> {
                                                                               .white,
                                                                       value:
                                                                           teacherDropDownValue,
-                                                                      items: teacherItems.map(
-                                                                          (String
+                                                                      items: model
+                                                                          .teachers!
+                                                                          .map((String
                                                                               items) {
                                                                         return DropdownMenuItem(
                                                                           value:
@@ -341,6 +337,17 @@ class _BatchManagementState extends State<BatchManagement> {
                                                                             {
                                                                           "courseName":
                                                                               course.courseName,
+                                                                          "payment":
+                                                                              {
+                                                                            "1month":
+                                                                                course.payment!.s1month,
+                                                                            "6month":
+                                                                                course.payment!.s6month,
+                                                                            "12month":
+                                                                                course.payment!.s12month,
+                                                                            "24months":
+                                                                                course.payment!.s24months,
+                                                                          },
                                                                           "batches": documentBatches +
                                                                               [
                                                                                 _batchController.text.trim()
@@ -374,19 +381,6 @@ class _BatchManagementState extends State<BatchManagement> {
                                                                       _batchController
                                                                           .text
                                                                           .trim();
-                                                                  print(title);
-                                                                  print(_batchController
-                                                                      .text
-                                                                      .trim());
-                                                                  print(teachersList
-                                                                      .toList());
-                                                                  print(BatchModel(
-                                                                          batchName: _batchController
-                                                                              .text
-                                                                              .trim(),
-                                                                          teachers:
-                                                                              teachersList.toList())
-                                                                      .toJson());
                                                                   await FirebaseFirestore
                                                                       .instance
                                                                       .collection(
@@ -474,6 +468,422 @@ class _BatchManagementState extends State<BatchManagement> {
                                       for (var batch in course.batches!)
                                         ListTile(
                                           title: Text(batch),
+                                          leading: IconButton(
+                                            icon: const Icon(
+                                              Icons.edit,
+                                              color: Colors.black,
+                                            ),
+                                            onPressed: () {
+                                              String teacherDropDownValue =
+                                                  model.teachers![0];
+                                              showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return Center(
+                                                      child:
+                                                          SingleChildScrollView(
+                                                        child: StatefulBuilder(
+                                                            builder: (BuildContext
+                                                                    context,
+                                                                StateSetter
+                                                                    setState) {
+                                                          return AlertDialog(
+                                                            title: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                const Text(
+                                                                    'Add Batch'),
+                                                                IconButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.of(
+                                                                              context,
+                                                                              rootNavigator: true)
+                                                                          .pop();
+                                                                    },
+                                                                    icon: const Icon(
+                                                                        Icons
+                                                                            .close_rounded))
+                                                              ],
+                                                            ),
+                                                            contentPadding: EdgeInsets
+                                                                .all(MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width *
+                                                                    (2 /
+                                                                        153.6)),
+                                                            content: SizedBox(
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width *
+                                                                  (700 / 1563),
+                                                              child: Form(
+                                                                key:
+                                                                    _batchFormKey,
+                                                                child: Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .min,
+                                                                  children: [
+                                                                    const Divider(
+                                                                      color: Colors
+                                                                          .amber,
+                                                                    ),
+                                                                    PopUpTextField(
+                                                                      controller:
+                                                                          _batchController,
+                                                                      validator:
+                                                                          (value) {
+                                                                        if (value!
+                                                                            .isEmpty) {
+                                                                          return ("Field cannot be empty");
+                                                                        }
+                                                                        return null;
+                                                                      },
+                                                                      hint:
+                                                                          'Batch S',
+                                                                      label:
+                                                                          'Batch Name',
+                                                                      widthRatio:
+                                                                          2,
+                                                                    ),
+                                                                    Container(
+                                                                      margin: EdgeInsets.all(MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          (1 /
+                                                                              153.6)),
+                                                                      width: double
+                                                                          .maxFinite,
+                                                                      padding: EdgeInsets.symmetric(
+                                                                          horizontal: MediaQuery.of(context).size.width *
+                                                                              (1 /
+                                                                                  153.6),
+                                                                          vertical:
+                                                                              MediaQuery.of(context).size.height * (5 / 792)),
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(12),
+                                                                        color: Colors
+                                                                            .grey
+                                                                            .withOpacity(0.15),
+                                                                      ),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            'Teachers  :',
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: MediaQuery.of(context).size.width * (18 / 1536),
+                                                                            ),
+                                                                          ),
+                                                                          DropdownButton(
+                                                                            elevation:
+                                                                                0,
+                                                                            dropdownColor:
+                                                                                Colors.white,
+                                                                            focusColor:
+                                                                                Colors.white,
+                                                                            value:
+                                                                                teacherDropDownValue,
+                                                                            items:
+                                                                                model.teachers!.map((String items) {
+                                                                              return DropdownMenuItem(
+                                                                                value: items,
+                                                                                child: Text(items),
+                                                                              );
+                                                                            }).toList(),
+                                                                            onChanged:
+                                                                                (String? newValue) {
+                                                                              setState(() {
+                                                                                teacherDropDownValue = newValue!;
+                                                                                teachersList.add(newValue);
+                                                                              });
+                                                                            },
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    Wrap(
+                                                                      direction:
+                                                                          Axis.horizontal,
+                                                                      alignment:
+                                                                          WrapAlignment
+                                                                              .center,
+                                                                      crossAxisAlignment:
+                                                                          WrapCrossAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        for (String teacher
+                                                                            in teachersList)
+                                                                          UnconstrainedBox(
+                                                                            child:
+                                                                                Container(
+                                                                              margin: EdgeInsets.all(Dimensions.padding20 / 10),
+                                                                              padding: EdgeInsets.only(left: Dimensions.padding20 / 10),
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(50),
+                                                                                color: Colors.amberAccent,
+                                                                                border: Border.all(color: Colors.black87),
+                                                                              ),
+                                                                              child: Row(
+                                                                                children: [
+                                                                                  Text(teacher),
+                                                                                  IconButton(
+                                                                                    onPressed: () {
+                                                                                      setState(() {
+                                                                                        teachersList.remove(teacher);
+                                                                                      });
+                                                                                    },
+                                                                                    icon: const Icon(
+                                                                                      Icons.close_rounded,
+                                                                                      color: Colors.black87,
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            actions: [
+                                                              Material(
+                                                                color: Colors
+                                                                    .amberAccent,
+                                                                elevation: 4,
+                                                                type:
+                                                                    MaterialType
+                                                                        .button,
+                                                                child:
+                                                                    MaterialButton(
+                                                                  onPressed:
+                                                                      () async {
+                                                                    if (_batchFormKey
+                                                                        .currentState!
+                                                                        .validate()) {
+                                                                      try {
+                                                                        final title =
+                                                                            document.id;
+                                                                        List<String>
+                                                                            documentBatches =
+                                                                            <String>[] +
+                                                                                course.batches!;
+                                                                        await FirebaseFirestore
+                                                                            .instance
+                                                                            .collection(
+                                                                                'cat')
+                                                                            .doc(
+                                                                                title)
+                                                                            .update({
+                                                                              "courses.${course.courseName!.toLowerCase()}": {
+                                                                                "courseName": course.courseName,
+                                                                                "payment": {
+                                                                                  "1month": course.payment!.s1month,
+                                                                                  "6month": course.payment!.s6month,
+                                                                                  "12month": course.payment!.s12month,
+                                                                                  "24months": course.payment!.s24months,
+                                                                                },
+                                                                                "batches": documentBatches +
+                                                                                    [
+                                                                                      _batchController.text.trim()
+                                                                                    ]
+                                                                              }
+                                                                            })
+                                                                            .then((value) =>
+                                                                                print("Batch Added"))
+                                                                            .catchError((error) => print("Failed to add batch: $error"));
+                                                                      } on FirebaseAuthException catch (error) {
+                                                                        switch (
+                                                                            error.code) {
+                                                                          default:
+                                                                            errorMessage =
+                                                                                "An undefined Error happened.+$error";
+                                                                        }
+                                                                        Fluttertoast.showToast(
+                                                                            msg:
+                                                                                errorMessage!);
+                                                                      }
+                                                                      Fluttertoast
+                                                                          .showToast(
+                                                                              msg: "Batch Added Successfully");
+                                                                      try {
+                                                                        String
+                                                                            title =
+                                                                            _batchController.text.trim();
+                                                                        await FirebaseFirestore
+                                                                            .instance
+                                                                            .collection(
+                                                                                'batches')
+                                                                            .doc(
+                                                                                title)
+                                                                            .set(BatchModel(batchName: _batchController.text.trim(), teachers: teachersList.toList())
+                                                                                .toJson())
+                                                                            .then((value) =>
+                                                                                print("Batch Added"))
+                                                                            .catchError((error) {
+                                                                          print(
+                                                                              "Failed to add Batch: $error");
+                                                                          return Fluttertoast.showToast(
+                                                                              msg: error!);
+                                                                        });
+                                                                      } on FirebaseAuthException catch (error) {
+                                                                        switch (
+                                                                            error.code) {
+                                                                          default:
+                                                                            errorMessage =
+                                                                                "An undefined Error happened.+$error";
+                                                                        }
+                                                                        Fluttertoast.showToast(
+                                                                            msg:
+                                                                                errorMessage!);
+                                                                      }
+                                                                      Fluttertoast
+                                                                          .showToast(
+                                                                              msg: "Batch Added Successfully in batches");
+                                                                      if (!mounted) {
+                                                                        return;
+                                                                      }
+                                                                      Navigator.of(
+                                                                              context,
+                                                                              rootNavigator: true)
+                                                                          .pop();
+                                                                    }
+                                                                  },
+                                                                  padding: EdgeInsets.all(
+                                                                      MediaQuery.of(context)
+                                                                              .size
+                                                                              .width /
+                                                                          76.8),
+                                                                  child: Text(
+                                                                    'Add Batch',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          MediaQuery.of(context).size.width /
+                                                                              86,
+                                                                      color: Colors
+                                                                          .black,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        }),
+                                                      ),
+                                                    );
+                                                  });
+                                            },
+                                          ),
+                                          trailing: IconButton(
+                                            onPressed: () async {
+                                              try {
+                                                final title = document.id;
+                                                await FirebaseFirestore.instance
+                                                    .collection('cat')
+                                                    .doc(title)
+                                                    .update({
+                                                      "courses.${course.courseName!.toLowerCase()}":
+                                                          {
+                                                        "courseName":
+                                                            course.courseName!,
+                                                        "payment": {
+                                                          "1month": course
+                                                              .payment!.s1month,
+                                                          "6month": course
+                                                              .payment!.s6month,
+                                                          "12month": course
+                                                              .payment!
+                                                              .s12month,
+                                                          "24months": course
+                                                              .payment!
+                                                              .s24months,
+                                                        },
+                                                        "batches": FieldValue
+                                                            .arrayRemove(
+                                                                [batch])
+                                                      }
+                                                    })
+                                                    .then((value) =>
+                                                        print("Batch Added"))
+                                                    .catchError((error) => print(
+                                                        "Failed to add batch: $error"));
+                                              } on FirebaseAuthException catch (error) {
+                                                switch (error.code) {
+                                                  default:
+                                                    errorMessage =
+                                                        "An undefined Error happened.+$error";
+                                                }
+                                                Fluttertoast.showToast(
+                                                    msg: errorMessage!);
+                                              }
+                                              Fluttertoast.showToast(
+                                                  msg:
+                                                      "Batch Added Successfully");
+                                              try {
+                                                String title = _batchController
+                                                    .text
+                                                    .trim();
+                                                await FirebaseFirestore.instance
+                                                    .collection('batches')
+                                                    .doc(title)
+                                                    .set(BatchModel(
+                                                            batchName:
+                                                                _batchController
+                                                                    .text
+                                                                    .trim(),
+                                                            teachers:
+                                                                teachersList
+                                                                    .toList())
+                                                        .toJson())
+                                                    .then((value) =>
+                                                        print("Batch Added"))
+                                                    .catchError((error) {
+                                                  print(
+                                                      "Failed to add Batch: $error");
+                                                  return Fluttertoast.showToast(
+                                                      msg: error!);
+                                                });
+                                              } on FirebaseAuthException catch (error) {
+                                                switch (error.code) {
+                                                  default:
+                                                    errorMessage =
+                                                        "An undefined Error happened.+$error";
+                                                }
+                                                Fluttertoast.showToast(
+                                                    msg: errorMessage!);
+                                              }
+                                              Fluttertoast.showToast(
+                                                  msg:
+                                                      "Batch Added Successfully in batches");
+                                              if (!mounted) {
+                                                return;
+                                              }
+                                              Navigator.of(context,
+                                                      rootNavigator: true)
+                                                  .pop();
+                                            },
+                                            icon: const Icon(
+                                              Icons.delete_outline_rounded,
+                                              color: Colors.redAccent,
+                                            ),
+                                          ),
                                         )
                                   ],
                                 ),
